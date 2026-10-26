@@ -1,0 +1,112 @@
+CHECKLIST PROYECTO 1: RESTAURANTE (APP WEB)
+Fecha límite GIT: 29/11/2026 | Presentaciones: 29/11 - 21/12/2026
+(Para marcar una tarea, cambia [ ] por [x])
+
+=== 0. PREPARACIÓN INICIAL ===
+[ ] Elegir temática del restaurante
+[ ] Crear repositorio en GitHub y dar acceso a todos los profesores
+[ ] Añadir el enlace del repositorio a la documentación
+[ ] Configurar IDE con plugins y depurador PHP
+[ ] Instalar y configurar el entorno local (servidor web, PHP...)
+[ ] Crear la estructura de carpetas MVC explicada en clase
+
+=== 1. DISEÑO ===
+[ ] Moodboard (color, forma, tipografía y composición)
+[ ] Prototipo de escritorio (1080px):
+    [ ] Home: header, 4 secciones (o banner + 3) y footer
+    [ ] Página de productos / carta
+    [ ] Página de detalle de producto (ingredientes añadibles)
+    [ ] Proceso de compra (carrito, precio e impuestos, finalizar)
+[ ] Home responsive para móvil (430x932)
+[ ] Principios de diseño (prototipo y web final):
+    [ ] Semejanza
+    [ ] Continuidad
+    [ ] Simetría
+    [ ] Proximidad
+    [ ] Contraste
+[ ] Uso correcto de imágenes y tipografía (prototipo y web final)
+
+=== 2. BASE DE DATOS ===
+[ ] Diagrama entidad-relación
+[ ] Modelo relacional
+[ ] Crear la BBDD (usuarios, productos, ingredientes, pedidos, ofertas...)
+[ ] Desplegarla en un contenedor Docker
+[ ] Subir los scripts de la BBDD al repositorio
+
+=== 3. PARTE DE USUARIO (PHP, HTML, CSS + Bootstrap) ===
+[ ] Registro de usuarios
+[ ] Inicio de sesión con sesiones PHP
+[ ] Cierre de sesión
+[ ] Navegación (home, carta, detalle, carrito)
+[ ] Listado y selección de productos
+[ ] Carrito: consultar, modificar y eliminar productos
+[ ] Añadir/eliminar ingredientes de un producto
+[ ] Recalcular el precio según los ingredientes
+[ ] Ofertas diseñadas individualmente y añadibles al carrito
+[ ] Finalizar compra solo con sesión iniciada
+[ ] Confirmar y guardar el pedido
+[ ] Consultar el último pedido al volver a entrar
+[ ] Panel de usuario: modificar datos y ver pedidos realizados
+
+=== 4. ARQUITECTURA Y CALIDAD DEL CÓDIGO ===
+[ ] Patrón MVC bien aplicado
+[ ] POO: clases, polimorfismo y clases estáticas
+[ ] Buena integración PHP-HTML
+[ ] Código comentado, legible y optimizado
+
+=== 5. API EN PHP ===
+[ ] Crear los endpoints de la API
+[ ] Endpoint de login del administrador
+[ ] Endpoints de productos (listar, modificar, ordenar, filtrar)
+[ ] Endpoints de pedidos (listar, modificar, añadir/eliminar productos, precio final)
+[ ] Endpoint de usuarios y su historial de pedidos
+
+=== 6. PANEL DE ADMINISTRACIÓN (HTML, CSS, JS) ===
+[ ] Rol de Administrador
+[ ] Login mediante la API con sesión en localStorage/sessionStorage
+[ ] Listar, modificar y ordenar productos y pedidos (asíncrono)
+[ ] Añadir/eliminar productos de un pedido y modificar precio final
+[ ] Filtrar por nombre, ID, precio, etc.
+[ ] Listar usuarios y ver su historial de pedidos
+[ ] Cambio de vistas sin recargar la página
+
+Requisitos técnicos obligatorios:
+[ ] DOM: obtener, crear y modificar elementos
+[ ] Eventos (clics, formularios, escritura)
+[ ] Funciones de orden superior (map, filter, reduce)
+[ ] Clases y objetos (mínimo 2 clases)
+[ ] Clase específica para gestionar las vistas
+[ ] Storage: sesión + segundo uso justificado
+[ ] Peticiones asíncronas con fetch o axios
+[ ] Comunicación solo mediante la API en PHP
+[ ] (Opcional) Funcionalidades adicionales
+
+=== 7. SERVICIOS WEB Y DESPLIEGUE ===
+[ ] Elegir, configurar y administrar un servidor web
+[ ] Subida del sitio por FTP
+[ ] Dominio público
+
+=== 8. USO DE GITHUB ===
+[ ] No trabajar directamente en main
+[ ] Ramas por funcionalidad, tarea o corrección
+[ ] Fusionar con main todos los push
+[ ] Correcciones completas que aborden todos los problemas
+[ ] Subir todo: memoria, código, BBDD...
+
+=== 9. DOCUMENTACIÓN (MEMORIA FINAL) ===
+[ ] Título
+[ ] Índice
+[ ] Diagrama de clases y explicación de su interacción (MVC)
+[ ] Diagrama entidad-relación y modelo relacional
+[ ] Moodboard y prototipos
+[ ] Justificación del segundo uso de Storage
+[ ] Explicaciones detalladas, sin faltas de ortografía
+[ ] Bibliografía / webgrafía
+[ ] Anexos
+[ ] Enlace al repositorio de GitHub
+
+=== 10. ENTREGA Y PRESENTACIÓN ===
+[ ] Subir todo a GIT antes del 29/11/2026
+[ ] Entregar la memoria final en la misma fecha
+[ ] Consultar la cuadrícula con mi fecha y hora de presentación
+[ ] Preparar la presentación
