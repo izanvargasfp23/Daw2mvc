@@ -1,0 +1,174 @@
+/* Tipografia */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap');
+
+/* GENERALES */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, .titulo, .menu-navegacion a {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+body {
+    background-color: #ffffff; 
+    color: #FFFFFF;           
+    font-family: 'Inter', sans-serif;
+}
+
+/* HEADER */
+.cabecera {
+    background-color: #111A23; 
+    width: 100%;
+    padding: 15px 30px;
+}
+
+.contenedor-cabecera {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo img {
+    height: 70px;
+    display: block;
+}
+
+/* Navegación */
+.menu-navegacion ul {
+    display: flex;
+    list-style: none;
+    gap: 85px;
+}
+
+.menu-navegacion a {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #FFFFFF;          
+    text-decoration: none;
+    font-size: 24px;
+    letter-spacing: 1.5px;
+}
+
+.menu-navegacion a:hover {
+    color: #FF424E;         
+}
+
+/* Zona de botones e iconos */
+.iconos-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.boton-buscar {
+    background-color: #7E7E7E;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+}
+
+.boton-buscar img,
+.icono-carrito img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+}
+
+.icono-carrito {
+    position: relative;
+    display: flex;
+}
+
+/* Contador del carrito */
+.contador-carrito {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #FF424E;
+    color: #FFFFFF;            
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* FOOTER */
+.pie-pagina {
+    background-color: #111A23;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+.contenedor-footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+/* Redes sociales arriba */
+.redes-sociales {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.redes-sociales img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1); /* Pasa los iconos oscuros a blanco */
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.redes-sociales img:hover {
+    opacity: 1;
+}
+
+/* Logo Riot */
+.footer-riot-logo img {
+    height: 30px;
+    width: auto;
+    filter: invert(1);
+}
+
+/* Texto legal intermedio */
+.texto-legal {
+    color: #7E7E7E;
+    font-size: 11px;
+    max-width: 700px;
+    line-height: 1.4;
+}
+
+/* Menú inferior de enlaces legales */
+.enlaces-legales {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.enlaces-legales a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+}
+
+.enlaces-legales a:hover {
+    color: #FF424E;
+}
