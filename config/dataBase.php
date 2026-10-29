@@ -6,14 +6,16 @@ class DataBase
     private const DB_USER = 'root';
     private const DB_PASS = 'root'; // <-- pon aquí tu contraseña de root
     private const DB_NAME = 'daw2mvc';
+    private const DB_PORT = 3308;
 
     public static function connect(
         $host = self::DB_HOST,
         $user = self::DB_USER,
         $pass = self::DB_PASS,
-        $db = self::DB_NAME
+        $db = self::DB_NAME,
+        $port = self::DB_PORT
     ) {
-        $con = new mysqli($host, $user, $pass, $db);
+        $con = new mysqli($host, $user, $pass, $db, $port);
 
         if ($con->connect_error) {
             die("ERROR!!: No te puedes conectar: " . $con->connect_error);
