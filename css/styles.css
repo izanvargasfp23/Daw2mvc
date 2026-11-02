@@ -18,6 +18,52 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+/* Boton negro */
+.boton-negro {
+    display: inline-block;
+    background-color: #111A23;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    padding: 10px 28px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+/* Hover: Fondo blanco, texto negro */
+.boton-negro:hover {
+    background-color: #FFFFFF;
+    color: #111A23;
+}
+
+/* 4. BOTÓN SECUNDARIO (Rojo) */
+.boton-red {
+    display: inline-block;
+    background-color: #FF424E;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    padding: 10px 28px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+/* Hover: Fondo negro, texto blanco */
+.boton-red:hover {
+    background-color: #111A23;
+    color: #FFFFFF;
+}
+
 /* HEADER */
 .cabecera {
     background-color: #111A23; 
