@@ -8,6 +8,10 @@ class ProductoController
         // 1. Obtener los productos desde el DAO
         $productos = ProductoDAO::getAll();
 
+        if (!isset($productos)) {
+            $productos = [];
+        }
+
         // 2. Definir la vista interna y llamar a la plantilla principal
         $view = "views/carta.php";
         include_once("views/main.php");

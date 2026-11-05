@@ -13,7 +13,7 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-h1, h2, h3, h4, .titulo, .menu-navegacion a, .titulo-seccion {
+h1, h2, h3, h4, .titulo, .menu-navegacion a, .titulo-seccion, .display-4, .display-5 {
     font-family: 'Bebas Neue', sans-serif;
 }
 
@@ -70,7 +70,7 @@ h1, h2, h3, h4, .titulo, .menu-navegacion a, .titulo-seccion {
     min-height: 80px;
 }
 
-/* centrar el contenido de la cabecera */
+/* centrar el contenido del header */
 .contenedor-cabecera {
     max-width: 1400px;
     width: 92%;
@@ -98,23 +98,14 @@ h1, h2, h3, h4, .titulo, .menu-navegacion a, .titulo-seccion {
     color: #FF424E !important;         
 }
 
-/* iconos lupa y carrito */
-.boton-buscar {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* iconos del header */
+.icono-header {
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s ease;
 }
 
-/* truco para poner los iconos svg en blanco */
-.boton-buscar img,
-.icono-carrito img {
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) invert(1);
+.icono-header:hover {
+    opacity: 0.8;
 }
 
 /* numero del carrito */
