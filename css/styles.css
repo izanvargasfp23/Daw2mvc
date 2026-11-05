@@ -1,24 +1,25 @@
-/* Tipografia */
+/* fuentes y reset basico */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap');
 
-/* GENERALES */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-h1, h2, h3, h4, .titulo, .menu-navegacion a {
-    font-family: 'Bebas Neue', sans-serif;
-}
-
 body {
-    background-color: #ffffff; 
-    color: #FFFFFF;           
+    background-color: #0f1923; 
+    color: #ece8e1;           
     font-family: 'Inter', sans-serif;
 }
 
-/* Boton negro */
+h1, h2, h3, h4, .titulo, .menu-navegacion a, .titulo-seccion {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+/* botones principales */
+
+/* boton oscuro */
 .boton-negro {
     display: inline-block;
     background-color: #111A23;
@@ -35,13 +36,12 @@ body {
     transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
-/* Hover: Fondo blanco, texto negro */
 .boton-negro:hover {
     background-color: #FFFFFF;
     color: #111A23;
 }
 
-/* 4. BOTÓN SECUNDARIO (Rojo) */
+/* boton rojo estilo valorant */
 .boton-red {
     display: inline-block;
     background-color: #FF424E;
@@ -58,94 +58,178 @@ body {
     transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
-/* Hover: Fondo negro, texto blanco */
 .boton-red:hover {
     background-color: #111A23;
     color: #FFFFFF;
 }
 
-/* HEADER */
+/* header */
 .cabecera {
     background-color: #111A23; 
     width: 100%;
-    padding: 15px 30px;
+    min-height: 80px;
 }
 
+/* centrar el contenido de la cabecera */
 .contenedor-cabecera {
-    max-width: 1200px;
+    max-width: 1400px;
+    width: 92%;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    min-height: 80px;
 }
 
-/* Logo */
 .logo img {
-    height: 70px;
+    height: 55px;
     display: block;
 }
 
-/* Navegación */
-.menu-navegacion ul {
-    display: flex;
-    list-style: none;
-    gap: 85px;
-}
-
-.menu-navegacion a {
-    font-family: 'Bebas Neue', sans-serif;
+/* links del menu */
+.menu-navegacion .nav-link {
     color: #FFFFFF;          
-    text-decoration: none;
-    font-size: 24px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
     letter-spacing: 1.5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    transition: color 0.2s ease;
 }
 
-.menu-navegacion a:hover {
-    color: #FF424E;         
+.menu-navegacion .nav-link:hover {
+    color: #FF424E !important;         
 }
 
-/* Zona de botones e iconos */
-.iconos-cabecera {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
+/* iconos lupa y carrito */
 .boton-buscar {
-    background-color: #7E7E7E;
+    background: transparent;
     border: none;
-    padding: 8px;
-    border-radius: 6px;
+    padding: 0;
     cursor: pointer;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* truco para poner los iconos svg en blanco */
 .boton-buscar img,
 .icono-carrito img {
     width: 20px;
     height: 20px;
-    filter: invert(1);
+    filter: brightness(0) invert(1);
 }
 
-.icono-carrito {
-    position: relative;
-    display: flex;
-}
-
-/* Contador del carrito */
+/* numero del carrito */
 .contador-carrito {
-    position: absolute;
-    top: -8px;
-    right: -8px;
     background-color: #FF424E;
     color: #FFFFFF;            
     font-size: 11px;
     font-weight: 600;
-    padding: 2px 6px;
-    border-radius: 50%;
 }
 
-/* FOOTER */
+/* vista de la carta */
+
+.container-carta {
+    max-width: 1400px;
+    width: 92%;
+    margin: 0 auto;
+}
+
+/* imagen del banner */
+.banner-carta-img {
+    width: 100%;
+    height: auto;
+    max-height: 380px;
+    object-fit: cover;
+    display: block;
+}
+
+/* enlace para volver */
+.btn-volver {
+    color: #ffffff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.btn-volver:hover {
+    color: #ff4655;
+}
+
+/* titulos de las secciones */
+main .titulo-seccion-principal {
+    color: #ff4655;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+main .titulo-seccion {
+    color: #ff4655;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+/* tarjetas de producto */
+div.card.card-producto {
+    background-color: #111923;
+    border: 1px solid #242e3d;
+    border-radius: 4px;
+}
+
+div.card.card-producto:hover {
+    border-color: #ff4655;
+}
+
+div.card.card-producto img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+div.card.card-producto .card-title {
+    color: #ffffff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+div.card.card-producto .card-text {
+    color: #8b97a5;
+    font-size: 0.85rem;
+}
+
+/* precios y vp */
+.info-precio-vp .texto-vp {
+    color: #8b97a5;
+    font-size: 0.8rem;
+}
+
+.info-precio-vp .texto-precio {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* boton de añadir dentro de la card */
+a.btn.btn-valorant {
+    background-color: #ff4655;
+    color: #ffffff;
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+a.btn.btn-valorant:hover {
+    background-color: #e03e4d;
+    color: #ffffff;
+}
+
+/* footer */
 .pie-pagina {
     background-color: #111A23;
     padding: 40px 20px;
@@ -162,7 +246,6 @@ body {
     gap: 20px;
 }
 
-/* Redes sociales arriba */
 .redes-sociales {
     display: flex;
     justify-content: center;
@@ -172,7 +255,7 @@ body {
 .redes-sociales img {
     width: 20px;
     height: 20px;
-    filter: invert(1); /* Pasa los iconos oscuros a blanco */
+    filter: invert(1);
     opacity: 0.8;
     transition: opacity 0.2s;
 }
@@ -181,14 +264,12 @@ body {
     opacity: 1;
 }
 
-/* Logo Riot */
 .footer-riot-logo img {
     height: 30px;
     width: auto;
     filter: invert(1);
 }
 
-/* Texto legal intermedio */
 .texto-legal {
     color: #7E7E7E;
     font-size: 11px;
@@ -196,7 +277,6 @@ body {
     line-height: 1.4;
 }
 
-/* Menú inferior de enlaces legales */
 .enlaces-legales {
     display: flex;
     justify-content: center;

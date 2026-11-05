@@ -57,4 +57,34 @@ class ProductoDAO
 
         return $producto ?: null;
     }
+
+    public static function store($producto)
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("INSERT INTO productos (nombre, descripcion, precio, imagen, categoria_id, activo) VALUES (?, ?, ?, ?, ?, ?)");
+
+        $nombre = $producto->getNombre();
+        $descripcion = $producto->getDescripcion();
+        $precio = $producto->getPrecio();
+        $imagen = $producto->getImagen();
+        $categoria_id = $producto->getCategoriaId();
+        $activo = $producto->getActivo();
+
+        $stmt->bind_param("ssdsii", $nombre, $descripcion, $precio, $imagen, $categoria_id, $activo);
+        $stmt->execute();
+
+        $stmt->close();
+        $con->close();
+    }
+
+    public static function destroy($id)
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("DELETE FROM productos WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $stmt->close();
+        $con->close();
+    }
 }

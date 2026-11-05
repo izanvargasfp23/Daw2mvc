@@ -9,9 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Estilos Propios -->
-    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link rel="stylesheet" href="css/styles.css?v=3.1">
 </head>
-<body class="d-flex flex-column min-vh-100 bg-light">
+<body class="d-flex flex-column min-vh-100">
 
     <!-- CABECERA DE LA WEB -->
     <?php include_once("views/header.php"); ?>
@@ -22,7 +22,7 @@
         if (isset($view) && file_exists($view)) {
             include_once($view);
         } else {
-            echo "<div class='container py-5 text-center'><h3>Cargando contenido...</h3></div>";
+            echo "<div class='container py-5 text-center'><h3>No se ha podido cargar el contenido.</h3></div>";
         }
         ?>
     </main>
