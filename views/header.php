@@ -34,16 +34,16 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
                 </li>
             </ul>
 
-            <!-- Iconos de la derecha (Lupa y Carrito) -->
+            <!-- Iconos de la derecha -->
             <div class="iconos-cabecera d-flex align-items-center justify-content-center gap-3 pb-3 pb-lg-0">
-                <button class="boton-buscar border-0 p-0" id="btn-buscar" type="button">
-                    <img src="img/svg/lupa.svg" alt="Buscar">
-                </button>
+                <a href="index.php?controller=Usuario&action=login" class="text-decoration-none">
+                    <img src="img/svg/avatar.svg" alt="Mi Cuenta" class="icono-header" style="width: 22px; height: 22px;">
+                </a>
 
-                <a href="index.php?controller=Carrito&action=index" class="icono-carrito position-relative d-flex align-items-center text-decoration-none">
-                    <img src="img/svg/carrito-de-compras.svg" alt="Carrito">
+                <a href="index.php?controller=Carrito&action=index" class="position-relative text-decoration-none">
+                    <img src="img/svg/carrito-de-compras.svg" alt="Carrito" class="icono-header" style="width: 22px; height: 22px;">
                     <?php if ($total_carrito > 0): ?>
-                        <span class="contador-carrito position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span class="contador-carrito position-absolute top-0 start-100 translate-middle badge rounded-pill">
                             <?= $total_carrito ?>
                         </span>
                     <?php endif; ?>

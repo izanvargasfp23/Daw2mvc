@@ -1,10 +1,3 @@
-<?php
-// si no vienen productos del controlador, inicializamos array vacio
-if (!isset($productos)) {
-    $productos = [];
-}
-?>
-
 <!-- Banner superior -->
 <div class="w-100 overflow-hidden mb-4">
     <img src="img/png/BannerCarta.png" alt="La Carta" class="banner-carta-img">
