@@ -15,6 +15,7 @@ abstract class ProductoBase
     protected $descripcion;
     protected $precio;
     protected $imagen;
+    public $activo;
 
     /**
      * fetch_object() rellena las propiedades ANTES de llamar al constructor.
@@ -81,4 +82,12 @@ abstract class ProductoBase
     public function setImagen($imagen) { 
         $this->imagen = $imagen; return $this; 
     }
+    public function getActivo() { 
+    return $this->activo; 
+    }
+
+    public function setActivo($activo) { 
+        $this->activo = $activo; 
+        return $this; 
+    }  
 }

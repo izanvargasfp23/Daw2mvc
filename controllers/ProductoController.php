@@ -5,11 +5,10 @@ class ProductoController
 {
     public function carta()
     {
-        $entrantes = ProductoDAO::getByCategoria(ProductoBase::TYPE_ENTRANTES);
-        $primeros  = ProductoDAO::getByCategoria(ProductoBase::TYPE_PRIMEROS);
-        $segundos  = ProductoDAO::getByCategoria(ProductoBase::TYPE_SEGUNDOS);
-        $postres   = ProductoDAO::getByCategoria(ProductoBase::TYPE_POSTRES);
+        // 1. Obtener los productos desde el DAO
+        $productos = ProductoDAO::getAll();
 
+        // 2. Definir la vista interna y llamar a la plantilla principal
         $view = "views/carta.php";
         include_once("views/main.php");
     }

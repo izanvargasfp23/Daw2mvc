@@ -1,126 +1,125 @@
+CREATE DATABASE IF NOT EXISTS daw2mvc
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+use daw2mvc;
+
 CREATE TABLE `usuarios` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  `email` varchar(150) UNIQUE NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `telefono` varchar(20),
-  `direccion` varchar(255),
-  `fecha_nacimiento` date,
-  `rol` varchar(20) NOT NULL DEFAULT 'usuario' COMMENT 'Valores: usuario, admin',
-  `fecha_registro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(150) UNIQUE NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `telefono` VARCHAR(20),
+  `direccion` VARCHAR(255),
+  `fecha_nacimiento` DATE,
+  `rol` VARCHAR(20) NOT NULL DEFAULT 'usuario' COMMENT 'Valores: usuario, admin',
+  `fecha_registro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `categorias` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100) UNIQUE NOT NULL,
-  `descripcion` text,
-  `activa` boolean NOT NULL DEFAULT true
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `nombre` VARCHAR(100) UNIQUE NOT NULL,
+  `descripcion` TEXT,
+  `activa` BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE `productos` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `categoria_id` int NOT NULL,
-  `nombre` varchar(150) NOT NULL,
-  `descripcion` text,
-  `precio` decimal(10,2) NOT NULL,
-  `imagen` varchar(255),
-  `activo` boolean NOT NULL DEFAULT true
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `categoria_id` INT NOT NULL,
+  `nombre` VARCHAR(150) NOT NULL,
+  `descripcion` TEXT,
+  `precio` DECIMAL(10,2) NOT NULL,
+  `imagen` VARCHAR(255),
+  `activo` BOOLEAN NOT NULL DEFAULT TRUE,
+  CONSTRAINT `fk_productos_categorias` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `ingredientes` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100) UNIQUE NOT NULL,
-  `precio_extra` decimal(10,2) NOT NULL DEFAULT 0,
-  `activo` boolean NOT NULL DEFAULT true
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `nombre` VARCHAR(100) UNIQUE NOT NULL,
+  `precio_extra` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `activo` BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE `producto_ingrediente` (
-  `producto_id` int NOT NULL,
-  `ingrediente_id` int NOT NULL,
-  `cantidad` decimal(10,2) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`producto_id`, `ingrediente_id`)
+  `producto_id` INT NOT NULL,
+  `ingrediente_id` INT NOT NULL,
+  `cantidad` DECIMAL(10,2) NOT NULL DEFAULT 1.00,
+  PRIMARY KEY (`producto_id`, `ingrediente_id`),
+  CONSTRAINT `fk_pi_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_pi_ingrediente` FOREIGN KEY (`ingrediente_id`) REFERENCES `ingredientes` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `ofertas` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(150) NOT NULL,
-  `descripcion` text,
-  `tipo` varchar(20) NOT NULL COMMENT 'Valores: descuento, 2x1, combo, codigo',
-  `valor` decimal(10,2),
-  `codigo` varchar(50) UNIQUE,
-  `fecha_inicio` datetime NOT NULL,
-  `fecha_fin` datetime,
-  `activa` boolean NOT NULL DEFAULT true
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `nombre` VARCHAR(150) NOT NULL,
+  `descripcion` TEXT,
+  `tipo` VARCHAR(20) NOT NULL COMMENT 'Valores: descuento, 2x1, combo, codigo',
+  `valor` DECIMAL(10,2),
+  `codigo` VARCHAR(50) UNIQUE,
+  `fecha_inicio` DATETIME NOT NULL,
+  `fecha_fin` DATETIME,
+  `activa` BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE `oferta_producto` (
-  `oferta_id` int NOT NULL,
-  `producto_id` int NOT NULL,
-  PRIMARY KEY (`oferta_id`, `producto_id`)
+  `oferta_id` INT NOT NULL,
+  `producto_id` INT NOT NULL,
+  PRIMARY KEY (`oferta_id`, `producto_id`),
+  CONSTRAINT `fk_op_oferta` FOREIGN KEY (`oferta_id`) REFERENCES `ofertas` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_op_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `pedidos` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `usuario_id` int NOT NULL,
-  `estado` varchar(20) NOT NULL DEFAULT 'pendiente' COMMENT 'Valores: pendiente, confirmado, preparando, enviado, entregado, cancelado',
-  `fecha_pedido` datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `subtotal` decimal(10,2) NOT NULL,
-  `descuento` decimal(10,2) NOT NULL DEFAULT 0,
-  `total` decimal(10,2) NOT NULL,
-  `metodo_pago` varchar(50) NOT NULL DEFAULT 'simulado',
-  `estado_pago` varchar(20) NOT NULL DEFAULT 'pendiente' COMMENT 'Valores: pendiente, pagado, fallido'
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `usuario_id` INT NOT NULL,
+  `estado` VARCHAR(20) NOT NULL DEFAULT 'pendiente' COMMENT 'Valores: pendiente, confirmado, preparando, enviado, entregado, cancelado',
+  `fecha_pedido` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `subtotal` DECIMAL(10,2) NOT NULL,
+  `descuento` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `total` DECIMAL(10,2) NOT NULL,
+  `metodo_pago` VARCHAR(50) NOT NULL DEFAULT 'simulado',
+  `estado_pago` VARCHAR(20) NOT NULL DEFAULT 'pendiente' COMMENT 'Valores: pendiente, pagado, fallido',
+  CONSTRAINT `fk_pedidos_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `pedido_detalle` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `pedido_id` int NOT NULL,
-  `producto_id` int,
-  `nombre_producto` varchar(150) NOT NULL,
-  `precio_unitario` decimal(10,2) NOT NULL,
-  `cantidad` int NOT NULL,
-  `subtotal` decimal(10,2) NOT NULL COMMENT 'CHECK cantidad > 0 y precio_unitario >= 0'
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `pedido_id` INT NOT NULL,
+  `producto_id` INT NULL,
+  `nombre_producto` VARCHAR(150) NOT NULL,
+  `precio_unitario` DECIMAL(10,2) NOT NULL,
+  `cantidad` INT NOT NULL CHECK (`cantidad` > 0),
+  `subtotal` DECIMAL(10,2) NOT NULL CHECK (`subtotal` >= 0),
+  CONSTRAINT `fk_pd_pedido` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_pd_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE SET NULL
 );
 
 CREATE TABLE `pedido_detalle_ingrediente` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `pedido_detalle_id` int NOT NULL,
-  `ingrediente_id` int,
-  `nombre_ingrediente` varchar(100) NOT NULL,
-  `precio_extra` decimal(10,2) NOT NULL DEFAULT 0,
-  `accion` varchar(20) NOT NULL COMMENT 'Valores: incluido, quitado, añadido'
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `pedido_detalle_id` INT NOT NULL,
+  `ingrediente_id` INT NULL,
+  `nombre_ingrediente` VARCHAR(100) NOT NULL,
+  `precio_extra` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `accion` VARCHAR(20) NOT NULL COMMENT 'Valores: incluido, quitado, añadido',
+  CONSTRAINT `fk_pdi_detalle` FOREIGN KEY (`pedido_detalle_id`) REFERENCES `pedido_detalle` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_pdi_ingrediente` FOREIGN KEY (`ingrediente_id`) REFERENCES `ingredientes` (`id`) ON DELETE SET NULL
 );
 
-ALTER TABLE `productos` ADD FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`);
+-- -----------------------------------------------------
+-- INSERCIÓN DE DATOS INICIALES
+-- -----------------------------------------------------
 
-ALTER TABLE `producto_ingrediente` ADD FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
-
-ALTER TABLE `producto_ingrediente` ADD FOREIGN KEY (`ingrediente_id`) REFERENCES `ingredientes` (`id`);
-
-ALTER TABLE `oferta_producto` ADD FOREIGN KEY (`oferta_id`) REFERENCES `ofertas` (`id`);
-
-ALTER TABLE `oferta_producto` ADD FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
-
-ALTER TABLE `pedidos` ADD FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
-
-ALTER TABLE `pedido_detalle` ADD FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`);
-
-ALTER TABLE `pedido_detalle` ADD FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
-
-ALTER TABLE `pedido_detalle_ingrediente` ADD FOREIGN KEY (`pedido_detalle_id`) REFERENCES `pedido_detalle` (`id`);
-
-ALTER TABLE `pedido_detalle_ingrediente` ADD FOREIGN KEY (`ingrediente_id`) REFERENCES `ingredientes` (`id`);
-
--- 1. Insertar o asegurar las categorías
-INSERT INTO categorias (id, nombre) VALUES
+-- 1. Categorías
+INSERT INTO `categorias` (`id`, `nombre`) VALUES
 (1, 'ENTRANTES'),
 (2, 'PRIMEROS'),
 (3, 'SEGUNDOS'),
 (4, 'POSTRES'),
 (5, 'MENUS')
-ON DUPLICATE KEY UPDATE nombre=VALUES(nombre);
+ON DUPLICATE KEY UPDATE `nombre` = VALUES(`nombre`);
 
--- 2. Insertar todos los productos
-INSERT INTO productos (categoria_id, nombre, descripcion, precio, imagen, activo) VALUES
+-- 2. Productos
+INSERT INTO `productos` (`categoria_id`, `nombre`, `descripcion`, `precio`, `imagen`, `activo`) VALUES
 (1, 'BURBUJA DE BARRICADA', 'Caprese Táctica: Queso mozzarella fresco con tomates confitados sobre cama verde y toque aromático bajo campana de humo.', 8.50, 'burbuja_barricada.jpg', 1),
 (1, 'FUEGO FATUO', 'Bruschetta Calabresa de masa madre con nduja picante, ricota cremosa y hilo de miel. Agente: Phoenix.', 9.00, 'fuego_fatuo.jpg', 1),
 (1, 'DARDO REVELADOR', 'Arancini crujientes rellenos de risotto de trufa negra, champiñones y queso Fontina fundido. Servidos con alioli de trufa helado. Agente: Sova.', 9.50, 'dardo_revelador.jpg', 1),
@@ -140,4 +139,3 @@ INSERT INTO productos (categoria_id, nombre, descripcion, precio, imagen, activo
 (5, 'RUN IT BACK', 'Menú táctico inspirado en Phoenix: Pizza Diávola Phoenix, Bistecca alla Fiorentina con oro, Tiramisú y Radiante Energy Drink.', 43.50, 'menu_run_it_back.jpg', 1),
 (5, 'RECON BOLT', 'Menú de precisión inspirado en Sova: Carpaccio de ternera, Pesadilla Nocturna (Atún rojo), Nano-enfriamiento y Vino/Agua.', 36.00, 'menu_recon_bolt.jpg', 1),
 (5, 'RESURRECTION', 'Menú de equilibrio inspirado en Sage: Ensalada Caprese Táctica, Tiro de Gracia (Chuletón con oro 24k), Nano-enfriamiento y Cerveza/Agua de Jade.', 39.50, 'menu_resurrection.jpg', 1);
-

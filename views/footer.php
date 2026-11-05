@@ -1,4 +1,3 @@
-</main>
 <footer class="pie-pagina">
     <div class="contenedor-footer">
         
@@ -31,5 +30,3 @@
 
     </div>
 </footer>
-</body>
-</html>
