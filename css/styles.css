@@ -289,3 +289,49 @@ a.btn.btn-valorant:hover {
 .enlaces-legales a:hover {
     color: #FF424E;
 }
+
+/* TIPOGRAFÍA Y ESPACIADO ESTILO VALORANT (HOME) */
+
+/* Titular Gigante Oficial */
+h1.titulo-valorant-home {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 85px;
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -1px;
+}
+
+/* Subtítulo táctico ajustado al tamaño de la web oficial */
+h3.subtitulo-valorant-home {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+/* Cuerpo de texto con legibilidad limpia */
+p.texto-valorant-home   {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Botones rectos oficiales */
+a.boton-red, a.boton-negro {
+    border-radius: 0px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding: 14px 36px;
+}
+
+/* Sección de Menús (Fondo rojo y altura) */
+section.seccion-menus-home {
+    background-color: #FF424E;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+/* Separacion texto boton */
+.boton-negro, .boton-red{
+    margin-top: 25px;
+}
