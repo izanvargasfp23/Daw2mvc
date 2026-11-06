@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
 <header class="cabecera navbar navbar-expand-lg navbar-dark p-0">
     <div class="container contenedor-cabecera d-flex align-items-center justify-content-between">
         
-        <!-- Logo -->
+        <!-- Logo (Lleva a la Home) -->
         <a href="index.php?controller=Home&action=index" class="logo text-decoration-none">
             <img src="img/Logo/Logo.png" alt="Logo Valorant Eats">
         </a>
@@ -21,7 +21,7 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
         <!-- Bloque Navegación e Iconos -->
         <div class="collapse navbar-collapse menu-navegacion justify-content-between" id="menuNavegacion">
             
-            <!-- Enlaces centrales (se centran solos en PC gracias a mx-auto) -->
+            <!-- Enlaces centrales -->
             <ul class="navbar-nav mx-auto text-center py-2 py-lg-0">
                 <li class="nav-item mx-lg-3">
                     <a href="index.php?controller=Producto&action=carta" class="nav-link text-white text-uppercase">CARTA</a>

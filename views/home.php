@@ -66,7 +66,7 @@
                 </p>
 
                 <!-- w-100 en móvil, w-md-auto en PC -->
-                <a href="index.php?controller=Producto&action=carta" class="boton-negro d-block d-md-inline-block text-uppercase">
+                <a href="index.php?controller=Producto&action=menus" class="boton-negro d-block d-md-inline-block text-uppercase">
                     MENÚS
                 </a>
             </div>
@@ -75,7 +75,7 @@
 </section>
 
 <!-- 4. SECCIÓN: NUESTROS CHEFS -->
-<section class="py-5 bg-white">
+<section id="chefs" class="py-5 bg-white">
     <div class="container container-carta py-2 py-md-4">
         <h1 class="display-5 fw-bold text-uppercase mb-4 text-dark">
             NUESTROS CHEFS
