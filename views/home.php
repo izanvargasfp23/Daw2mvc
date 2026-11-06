@@ -9,65 +9,63 @@
         <div class="row align-items-center g-4 g-md-5">
             <!-- Columna Texto -->
             <div class="col-12 col-md-6">
-                <h1 class="display-4 fw-bold text-uppercase mb-0 text-dark">
+                <h1 class="titulo-valorant-home text-uppercase mb-3 text-dark">
                     SOMOS<br>VALORANT EATS
                 </h1>
                 
-                <h3 class="h6 fw-bold text-uppercase text-muted mt-2 mb-3" style="letter-spacing: 1px;">
+                <h3 class="subtitulo-valorant-home text-uppercase mb-3 text-muted">
                     DESAFIAR EL PALADAR
                 </h3>
                 
-                <p class="small text-secondary mb-4">
-                    Demuestra vuestro estilo y pasión gastronómica en un escenario culinario sin precedentes. 
+                <p class="texto-valorant-home text-dark mb-4">
+                    Demostrad vuestro estilo y pasión gastronómica en un escenario culinario sin precedentes. 
                     Disfruta de recetas tradicionales italianas perfeccionadas mediante un manejo de ingredientes 
                     frescos y habilidades de cocina táctica. Y, con un solo bocado por plato, tendrás ese saborear 
                     más rápido que vuestros acompañantes a la hora de repetir. Entramos a nuestros menús en las 
                     mesas Trattoria, Pizza al Taglio y Delivery, además de nuestras especialidades de Fuego y Horno de Leña.
                 </p>
 
-                <!-- w-100 en móvil, w-md-auto en PC -->
                 <a href="index.php?controller=Producto&action=carta" class="boton-red d-block d-md-inline-block text-uppercase">
-                    QUIÉNES SOMOS
+                    VER CARTA
                 </a>
             </div>
 
             <!-- Columna Imagen Local -->
             <div class="col-12 col-md-6 text-center">
-                <img src="img/png/Restaurante.jpg" alt="Fachada Valorant Eats" class="img-fluid rounded shadow-sm w-100" style="max-height: 350px; object-fit: cover;">
+                <img src="img/png/Restaurante.jpg" alt="Fachada Valorant Eats" class="img-fluid rounded shadow-sm w-100" style="max-height: 420px; object-fit: cover;">
             </div>
         </div>
     </div>
 </section>
 
-<!-- 3. SECCIÓN: NUESTROS MENÚS (BLOQUE CORAL #FF424E) -->
-<section class="py-5 text-white" style="background-color: #FF424E;">
-    <div class="container container-carta py-2 py-md-4">
+<!-- 3. SECCIÓN: NUESTROS MENÚS (BLOQUE CORAL #FF424E ALARGADO) -->
+<section class="seccion-menus-home text-white">
+    <div class="container container-carta">
         <div class="row align-items-center g-4 g-md-5">
             <!-- Columna Imagen Menús -->
             <div class="col-12 col-md-6 text-center">
-                <img src="img/png/Menus.jpg" alt="Nuestros Menús" class="img-fluid rounded shadow-sm w-100" style="max-height: 350px; object-fit: cover;">
+                <img src="img/png/Menus.jpg" alt="Nuestros Menús" class="img-fluid rounded shadow-sm w-100" style="max-height: 420px; object-fit: cover;">
             </div>
 
             <!-- Columna Texto y Botón -->
             <div class="col-12 col-md-6">
-                <h1 class="display-4 fw-bold text-uppercase mb-0 text-white">
+                <h1 class="titulo-valorant-home text-uppercase mb-3 text-white">
                     NUESTROS MENÚS
                 </h1>
                 
-                <h3 class="h6 fw-bold text-uppercase text-white-50 mt-2 mb-3" style="letter-spacing: 1px;">
+                <h3 class="subtitulo-valorant-home text-uppercase mb-3">
                     LA CREATIVIDAD ES EL INGREDIENTE MÁS PODEROSO
                 </h3>
                 
-                <p class="small text-white-50 mb-4">
+                <p class="texto-valorant-home-white mb-4">
                     Aparte de los ingredientes y la tradición, tendréis una carta con especialidades únicas,
                     elaboradas a la perfección para que os brinden la oportunidad de explorar el auténtico
                     sabor italiano táctico. No hay dos recetas iguales, del mismo modo que no hay dos
                     bocados idénticos.
                 </p>
 
-                <!-- w-100 en móvil, w-md-auto en PC -->
                 <a href="index.php?controller=Producto&action=menus" class="boton-negro d-block d-md-inline-block text-uppercase">
-                    MENÚS
+                    VER MENÚS
                 </a>
             </div>
         </div>
@@ -77,7 +75,7 @@
 <!-- 4. SECCIÓN: NUESTROS CHEFS -->
 <section id="chefs" class="py-5 bg-white">
     <div class="container container-carta py-2 py-md-4">
-        <h1 class="display-5 fw-bold text-uppercase mb-4 text-dark">
+        <h1 class="titulo-valorant-home text-uppercase mb-4 text-dark">
             NUESTROS CHEFS
         </h1>
 
@@ -85,11 +83,11 @@
             <!-- Chef 1 -->
             <div class="col-12 col-md-4">
                 <div class="card h-100 border-0 bg-transparent">
-                    <img src="img/png/sovaChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Sova" style="height: 240px; object-fit: cover;">
+                    <img src="img/png/sovaChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Sova" style="height: 250px; object-fit: cover;">
                     <div class="card-body px-0 pt-3">
-                        <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem;">CREADOR D'ELIT</small>
-                        <h4 class="h5 fw-bold mb-2 text-dark">Sova // El Secreto del Tartufo</h4>
-                        <p class="card-text small text-muted">
+                        <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem; letter-spacing: 1px;">Especialista en trufa</small>
+                        <h4 class="h5 fw-bold mb-2 text-dark" style="font-family: 'Inter', sans-serif;">Sova // El Secreto del Tartufo</h4>
+                        <p class="card-text small text-dark" style="font-family: 'Inter', sans-serif;">
                             Su pasión por la trufa de Alba le ha llevado a crear platos legendarios...
                         </p>
                     </div>
@@ -99,11 +97,11 @@
             <!-- Chef 2 -->
             <div class="col-12 col-md-4">
                 <div class="card h-100 border-0 bg-transparent">
-                    <img src="img/png/phoenixChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Phoenix" style="height: 240px; object-fit: cover;">
+                    <img src="img/png/phoenixChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Phoenix" style="height: 250px; object-fit: cover;">
                     <div class="card-body px-0 pt-3">
-                        <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem;">SPECIALTY CHEF</small>
-                        <h4 class="h5 fw-bold mb-2 text-dark">Phoenix // Pizza Napolitana Auténtica</h4>
-                        <p class="card-text small text-muted">
+                        <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem; letter-spacing: 1px;">Experto en leña</small>
+                        <h4 class="h5 fw-bold mb-2 text-dark" style="font-family: 'Inter', sans-serif;">Phoenix // Pizza Napolitana Auténtica</h4>
+                        <p class="card-text small text-dark" style="font-family: 'Inter', sans-serif;">
                             Cada pizza es una obra de arte, siguiendo la tradición de su familia de Nápoles...
                         </p>
                     </div>
@@ -113,11 +111,11 @@
             <!-- Chef 3 -->
             <div class="col-12 col-md-4">
                 <div class="card h-100 border-0 bg-transparent">
-                    <img src="img/png/sageChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Sage" style="height: 240px; object-fit: cover;">
+                    <img src="img/png/sageChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Sage" style="height: 250px; object-fit: cover;">
                     <div class="card-body px-0 pt-3">
-                        <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem;">REPOSTERA</small>
-                        <h4 class="h5 fw-bold mb-2 text-dark">Sage // La Maestría del Dulce</h4>
-                        <p class="card-text small text-muted">
+                        <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem; letter-spacing: 1px;">ARTESANA DULCE</small>
+                        <h4 class="h5 fw-bold mb-2 text-dark" style="font-family: 'Inter', sans-serif;">Sage // La Maestría del Dulce</h4>
+                        <p class="card-text small text-dark" style="font-family: 'Inter', sans-serif;">
                             Reinventando los postres clásicos con un toque de sus poderes...
                         </p>
                     </div>
