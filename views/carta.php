@@ -30,7 +30,7 @@
                                     <span class="texto-vp">1000 VP/PTS</span>
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
                                 </div>
-                                <a href="index.php?controller=Carrito&action=add&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
+                                <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                     <span class="texto-vp">1000 VP/PTS</span>
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
                                 </div>
-                                <a href="index.php?controller=Carrito&action=add&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
+                               <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                                     <span class="texto-vp">2000 VP/PTS</span>
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
                                 </div>
-                                <a href="index.php?controller=Carrito&action=add&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
+                                <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                                     <span class="texto-vp">1000 VP/PTS</span>
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
                                 </div>
-                                <a href="index.php?controller=Carrito&action=add&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
+                                <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100"> AÑADIR AL CARRITO </a>
                             </div>
                         </div>
                     </div>
