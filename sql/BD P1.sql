@@ -36,7 +36,23 @@ CREATE TABLE `productos` (
   CONSTRAINT `fk_productos_categorias` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`) ON DELETE CASCADE
 );
 
--- 4. TABLA MENUS (Exclusiva para Menús Tácticos)
+-- 4. TABLA ALÉRGENOS
+CREATE TABLE `alergenos` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `nombre` VARCHAR(100) UNIQUE NOT NULL,
+  `icono` VARCHAR(255)
+);
+
+-- 5. TABLA INTERMEDIA PRODUCTO_ALERGENO
+CREATE TABLE `producto_alergeno` (
+  `producto_id` INT NOT NULL,
+  `alergeno_id` INT NOT NULL,
+  PRIMARY KEY (`producto_id`, `alergeno_id`),
+  CONSTRAINT `fk_pa_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_pa_alergeno` FOREIGN KEY (`alergeno_id`) REFERENCES `alergenos` (`id`) ON DELETE CASCADE
+);
+
+-- 6. TABLA MENUS (Exclusiva para Menús Tácticos)
 CREATE TABLE `menus` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `nombre` VARCHAR(150) NOT NULL,
@@ -46,7 +62,7 @@ CREATE TABLE `menus` (
   `activo` BOOLEAN NOT NULL DEFAULT TRUE
 );
 
--- 5. TABLA INTERMEDIA MENU_PRODUCTO (Relaciona los menús con los productos)
+-- 7. TABLA INTERMEDIA MENU_PRODUCTO (Relaciona los menús con los productos)
 CREATE TABLE `menu_producto` (
   `menu_id` INT NOT NULL,
   `producto_id` INT NOT NULL,
@@ -56,7 +72,7 @@ CREATE TABLE `menu_producto` (
   CONSTRAINT `fk_mp_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE
 );
 
--- 6. TABLA INGREDIENTES
+-- 8. TABLA INGREDIENTES
 CREATE TABLE `ingredientes` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `nombre` VARCHAR(100) UNIQUE NOT NULL,
@@ -64,7 +80,7 @@ CREATE TABLE `ingredientes` (
   `activo` BOOLEAN NOT NULL DEFAULT TRUE
 );
 
--- 7. TABLA INTERMEDIA PRODUCTO_INGREDIENTE
+-- 9. TABLA INTERMEDIA PRODUCTO_INGREDIENTE
 CREATE TABLE `producto_ingrediente` (
   `producto_id` INT NOT NULL,
   `ingrediente_id` INT NOT NULL,
@@ -74,7 +90,7 @@ CREATE TABLE `producto_ingrediente` (
   CONSTRAINT `fk_pi_ingrediente` FOREIGN KEY (`ingrediente_id`) REFERENCES `ingredientes` (`id`) ON DELETE CASCADE
 );
 
--- 8. TABLA OFERTAS
+-- 10. TABLA OFERTAS
 CREATE TABLE `ofertas` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `nombre` VARCHAR(150) NOT NULL,
@@ -87,7 +103,7 @@ CREATE TABLE `ofertas` (
   `activa` BOOLEAN NOT NULL DEFAULT TRUE
 );
 
--- 9. TABLA OFERTA_PRODUCTO
+-- 11. TABLA OFERTA_PRODUCTO
 CREATE TABLE `oferta_producto` (
   `oferta_id` INT NOT NULL,
   `producto_id` INT NOT NULL,
@@ -96,7 +112,7 @@ CREATE TABLE `oferta_producto` (
   CONSTRAINT `fk_op_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE
 );
 
--- 10. TABLA PEDIDOS
+-- 12. TABLA PEDIDOS
 CREATE TABLE `pedidos` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `usuario_id` INT NOT NULL,
@@ -110,7 +126,7 @@ CREATE TABLE `pedidos` (
   CONSTRAINT `fk_pedidos_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
 );
 
--- 11. TABLA PEDIDO_DETALLE
+-- 13. TABLA PEDIDO_DETALLE
 CREATE TABLE `pedido_detalle` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `pedido_id` INT NOT NULL,
@@ -123,7 +139,7 @@ CREATE TABLE `pedido_detalle` (
   CONSTRAINT `fk_pd_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE SET NULL
 );
 
--- 12. TABLA PEDIDO_DETALLE_INGREDIENTE
+-- 14. TABLA PEDIDO_DETALLE_INGREDIENTE
 CREATE TABLE `pedido_detalle_ingrediente` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `pedido_detalle_id` INT NOT NULL,
@@ -148,7 +164,19 @@ INSERT INTO `categorias` (`id`, `nombre`) VALUES
 (5, 'BEBIDAS')
 ON DUPLICATE KEY UPDATE `nombre` = VALUES(`nombre`);
 
--- 2. Productos (Platos individuales y Bebidas)
+-- 2. Alérgenos con archivos SVG asignados
+INSERT INTO `alergenos` (`id`, `nombre`, `icono`) VALUES
+(1, 'Gluten', 'sin-gluten.svg'),
+(2, 'Lácteos', 'libre-de-lacteos.svg'),
+(3, 'Huevos', 'huevos.svg'),
+(4, 'Pescado', 'pescado.svg'),
+(5, 'Cacahuetes', 'mani.svg'),
+(6, 'Sésamo', 'sesamo.svg'),
+(7, 'Sulfitos', 'sulfito.svg'),
+(8, 'Moluscos', 'moluscos.svg')
+ON DUPLICATE KEY UPDATE `nombre` = VALUES(`nombre`), `icono` = VALUES(`icono`);
+
+-- 3. Productos (Platos individuales y Bebidas)
 INSERT INTO `productos` (`id`, `categoria_id`, `nombre`, `descripcion`, `precio`, `imagen`, `activo`) VALUES
 -- Entrantes (Cat 1)
 (1, 1, 'BURBUJA DE BARRICADA', 'Caprese Táctica: Queso mozzarella fresco con tomates confitados sobre cama verde y toque aromático bajo campana de humo.', 8.50, 'burbuja_barricada.jpg', 1),
@@ -179,13 +207,50 @@ INSERT INTO `productos` (`id`, `categoria_id`, `nombre`, `descripcion`, `precio`
 (18, 5, 'VINO DE LA CASA O AGUA', 'Copa de vino tinto de la casa o agua mineral embotellada.', 3.50, 'vino_agua.jpg', 1),
 (19, 5, 'CERVEZA O AGUA DE JADE', 'Cerveza artesanal de tirador o agua purificada de jade.', 4.00, 'cerveza_jade.jpg', 1);
 
--- 3. Menús (Tabla `menus`)
+-- 4. Relación Producto -> Alérgenos (producto_alergeno)
+INSERT INTO `producto_alergeno` (`producto_id`, `alergeno_id`) VALUES
+-- Burbuja de Barricada: Lácteos
+(1, 2),
+-- Fuego Fatuo: Gluten, Lácteos
+(2, 1), (2, 2),
+-- Dardo Revelador: Gluten, Lácteos, Huevos
+(3, 1), (3, 2), (3, 3),
+-- Burrata Ahumada de la Sombra: Gluten, Lácteos
+(4, 1), (4, 2),
+-- Bowl de Marisco Orbital: Moluscos
+(5, 8),
+-- Corte de Viento: Gluten, Pescado
+(6, 1), (6, 4),
+-- Llamada del Veneno: Gluten, Lácteos
+(7, 1), (7, 2),
+-- Bocado Imperial: Gluten, Lácteos
+(8, 1), (8, 2),
+-- Tiro de Gracia: Sulfitos
+(9, 7),
+-- Salto Táctico: Lácteos, Sulfitos
+(10, 2), (10, 7),
+-- Pesadilla Nocturna: Pescado, Sésamo, Sulfitos, Moluscos
+(11, 4), (11, 6), (11, 7), (11, 8),
+-- Impacto de Fuego: Gluten, Lácteos
+(12, 1), (12, 2),
+-- Infiltración Gelata: Gluten, Lácteos, Huevos
+(13, 1), (13, 2), (13, 3),
+-- Forma Astral: Lácteos
+(14, 2),
+-- Red de Espías: Gluten, Lácteos
+(15, 1), (15, 2),
+-- Bloqueo Dulce: Gluten, Lácteos, Huevos
+(16, 1), (16, 2), (16, 3),
+-- Cerveza o Agua de Jade: Gluten
+(19, 1);
+
+-- 5. Menús (Tabla `menus`)
 INSERT INTO `menus` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `activo`) VALUES
 (1, 'RUN IT BACK', 'Menú táctico inspirado en Phoenix.', 43.50, 'menu_run_it_back.jpg', 1),
 (2, 'RECON BOLT', 'Menú de precisión inspirado en Sova.', 36.00, 'menu_recon_bolt.jpg', 1),
 (3, 'RESURRECTION', 'Menú de equilibrio inspirado en Sage.', 39.50, 'menu_resurrection.jpg', 1);
 
--- 4. Relación Menú -> Productos (menu_producto)
+-- 6. Relación Menú -> Productos (menu_producto)
 INSERT INTO `menu_producto` (`menu_id`, `producto_id`, `tipo_plato`) VALUES
 -- RUN IT BACK (Menu ID 1)
 (1, 12, 'PRIMERO'), -- IMPACTO DE FUEGO (Pizza Diávola)
@@ -205,7 +270,7 @@ INSERT INTO `menu_producto` (`menu_id`, `producto_id`, `tipo_plato`) VALUES
 (3, 14, 'POSTRE'),  -- FORMA ASTRAL (Panna Cotta)
 (3, 19, 'BEBIDA');  -- CERVEZA O AGUA DE JADE
 
--- 5. Catálogo de Ingredientes
+-- 7. Catálogo de Ingredientes
 INSERT INTO `ingredientes` (`id`, `nombre`, `precio_extra`, `activo`) VALUES
 (1, 'Queso Mozzarella Fresco', 1.50, 1),
 (2, 'Tomates Confitados', 1.00, 1),
@@ -242,7 +307,7 @@ INSERT INTO `ingredientes` (`id`, `nombre`, `precio_extra`, `activo`) VALUES
 (33, 'Vino Tinto de la Casa', 2.00, 1),
 (34, 'Cerveza Artesanal', 2.00, 1);
 
--- 6. Inserción de Ingredientes por Producto (producto_ingrediente)
+-- 8. Inserción de Ingredientes por Producto (producto_ingrediente)
 INSERT INTO `producto_ingrediente` (`producto_id`, `ingrediente_id`, `cantidad`) VALUES
 -- Burbuja de Barricada (1)
 (1, 1, 1.00), (1, 2, 1.00),
