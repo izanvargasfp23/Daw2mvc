@@ -26,9 +26,12 @@
                                 <p class="card-text small"><?= htmlspecialchars($producto->getDescripcion(), ENT_QUOTES, 'UTF-8') ?></p>
                             </div>
                             <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2 info-precio-vp">
-                                    <span class="texto-vp">1000 VP/PTS</span>
+                                <div class="d-flex flex-column align-items-end mb-3 info-precio-vp">
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
+                                    <div class="d-inline-flex align-items-center gap-1 text-white-50" style="font-size: 0.85rem;">
+                                        <span>+500</span>
+                                        <img src="img/png/Valorant_Points.webp" alt="VP" style="width: 16px; height: 16px;">
+                                    </div>
                                 </div>
                                 <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
                             </div>
@@ -53,9 +56,12 @@
                                 <p class="card-text small"><?= htmlspecialchars($producto->getDescripcion(), ENT_QUOTES, 'UTF-8') ?></p>
                             </div>
                             <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2 info-precio-vp">
-                                    <span class="texto-vp">1000 VP/PTS</span>
+                                <div class="d-flex flex-column align-items-end mb-3 info-precio-vp">
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
+                                    <div class="d-inline-flex align-items-center gap-1 text-white-50" style="font-size: 0.85rem;">
+                                        <span>+1000</span>
+                                        <img src="img/png/Valorant_Points.webp" alt="VP" style="width: 16px; height: 16px;">
+                                    </div>
                                 </div>
                                <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
                             </div>
@@ -80,9 +86,12 @@
                                 <p class="card-text small"><?= htmlspecialchars($producto->getDescripcion(), ENT_QUOTES, 'UTF-8') ?></p>
                             </div>
                             <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2 info-precio-vp">
-                                    <span class="texto-vp">2000 VP/PTS</span>
+                                <div class="d-flex flex-column align-items-end mb-3 info-precio-vp">
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
+                                    <div class="d-inline-flex align-items-center gap-1 text-white-50" style="font-size: 0.85rem;">
+                                        <span>+2000</span>
+                                        <img src="img/png/Valorant_Points.webp" alt="VP" style="width: 16px; height: 16px;">
+                                    </div>
                                 </div>
                                 <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100">AÑADIR AL CARRITO</a>
                             </div>
@@ -107,9 +116,12 @@
                                 <p class="card-text small"><?= htmlspecialchars($producto->getDescripcion(), ENT_QUOTES, 'UTF-8') ?></p>
                             </div>
                             <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2 info-precio-vp">
-                                    <span class="texto-vp">1000 VP/PTS</span>
+                                <div class="d-flex flex-column align-items-end mb-3 info-precio-vp">
                                     <span class="texto-precio"><?= number_format($producto->getPrecio(), 2, ',', '.') ?> €</span>
+                                    <div class="d-inline-flex align-items-center gap-1 text-white-50" style="font-size: 0.85rem;">
+                                        <span>+500</span>
+                                        <img src="img/png/Valorant_Points.webp" alt="VP" style="width: 16px; height: 16px;">
+                                    </div>
                                 </div>
                                 <a href="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" class="btn btn-valorant w-100"> AÑADIR AL CARRITO </a>
                             </div>
