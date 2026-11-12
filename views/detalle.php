@@ -18,7 +18,7 @@
                 
                 <!-- foto -->
                 <div class="mb-4">
-                    <img src="img/png/<?= $producto->getImagen() ?>" 
+                    <img src="img/webp/<?= $producto->getImagen() ?>" 
                          alt="<?= $producto->getNombre() ?>" 
                          class="img-fluid w-100" 
                          style="max-height: 400px; object-fit: cover; border-radius: 4px;">

@@ -179,33 +179,33 @@ ON DUPLICATE KEY UPDATE `nombre` = VALUES(`nombre`), `icono` = VALUES(`icono`);
 -- 3. Productos (Platos individuales y Bebidas)
 INSERT INTO `productos` (`id`, `categoria_id`, `nombre`, `descripcion`, `precio`, `imagen`, `activo`) VALUES
 -- Entrantes (Cat 1)
-(1, 1, 'BURBUJA DE BARRICADA', 'Caprese Táctica: Queso mozzarella fresco con tomates confitados sobre cama verde y toque aromático bajo campana de humo.', 8.50, 'burbuja_barricada.jpg', 1),
-(2, 1, 'FUEGO FATUO', 'Bruschetta Calabresa de masa madre con nduja picante, ricota cremosa y hilo de miel. Agente: Phoenix.', 9.00, 'fuego_fatuo.jpg', 1),
-(3, 1, 'DARDO REVELADOR', 'Arancini crujientes rellenos de risotto de trufa negra, champiñones y queso Fontina fundido. Servidos con alioli de trufa helado. Agente: Sova.', 9.50, 'dardo_revelador.jpg', 1),
-(4, 1, 'BURRATA AHUMADA DE LA SOMBRA', 'Burrata fresca ahumada al momento con trufa negra, tostas crujientes y gotas de aceite. Inspiración: Omen.', 12.00, 'burrata_sombra.jpg', 1),
+(1, 1, 'BURBUJA DE BARRICADA', 'Caprese Táctica: Queso mozzarella fresco con tomates confitados sobre cama verde y toque aromático bajo campana de humo.', 8.50, 'burbuja_barricada.webp', 1),
+(2, 1, 'FUEGO FATUO', 'Bruschetta Calabresa de masa madre con nduja picante, ricota cremosa y hilo de miel. Agente: Phoenix.', 9.00, 'fuego_fatuo.webp', 1),
+(3, 1, 'DARDO REVELADOR', 'Arancini crujientes rellenos de risotto de trufa negra, champiñones y queso Fontina fundido. Servidos con alioli de trufa helado. Agente: Sova.', 9.50, 'dardo_revelador.webp', 1),
+(4, 1, 'BURRATA AHUMADA DE LA SOMBRA', 'Burrata fresca ahumada al momento con trufa negra, tostas crujientes y gotas de aceite. Inspiración: Omen.', 12.00, 'burrata_sombra.webp', 1),
 
 -- Primeros (Cat 2)
-(5, 2, 'BOWL DE MARISCO ORBITAL', 'Frescos mejillones del Pacífico salteados con toque especiado de curry tailandés, leche de coco y virutas de hierba de limón.', 11.50, 'bowl_marisco.jpg', 1),
-(6, 2, 'CORTE DE VIENTO', 'Lomo de salmón fresco marcado a la plancha sobre cama de cuscús de verduras y suave salsa de cítricos.', 12.00, 'corte_viento.jpg', 1),
-(7, 2, 'LLAMADA DEL VENENO', 'Pasta fresca en espiral con pesto de albahaca casero, piñones tostados, perlas de queso de cabra y virutas de tomate deshidratado.', 10.50, 'llamada_veneno.jpg', 1),
-(8, 2, 'BOCADO IMPERIAL', 'Jugoso estofado de ternera marinada en cerveza negra y especias montado sobre puré de patata estilo Robuchon.', 11.00, 'bocado_imperial.jpg', 1),
+(5, 2, 'BOWL DE MARISCO ORBITAL', 'Frescos mejillones del Pacífico salteados con toque especiado de curry tailandés, leche de coco y virutas de hierba de limón.', 11.50, 'bowl_marisco.webp', 1),
+(6, 2, 'CORTE DE VIENTO', 'Lomo de salmón fresco marcado a la plancha sobre cama de cuscús de verduras y suave salsa de cítricos.', 12.00, 'corte_viento.webp', 1),
+(7, 2, 'LLAMADA DEL VENENO', 'Pasta fresca en espiral con pesto de albahaca casero, piñones tostados, perlas de queso de cabra y virutas de tomate deshidratado.', 10.50, 'llamada_veneno.webp', 1),
+(8, 2, 'BOCADO IMPERIAL', 'Jugoso estofado de ternera marinada en cerveza negra y especias montado sobre puré de patata estilo Robuchon.', 11.00, 'bocado_imperial.webp', 1),
 
 -- Segundos (Cat 3)
-(9, 3, 'TIRO DE GRACIA', 'Corte de vacuno mayor madurado a la parrilla con acabado en láminas de oro comestible de 24k, sal escamada y una elegante reducción de Chianti Classico.', 22.00, 'tiro_gracia.jpg', 1),
-(10, 3, 'SALTO TÁCTICO', 'Jarrete de ternera tierno cocinado a fuego lento en salsa de tomate picante y vino tinto, servido sobre cremoso risotto al azafrán con crujiente de gremolata cítrica y un toque chispeante de guindilla.', 21.00, 'salto_tactico.jpg', 1),
-(11, 3, 'PESADILLA NOCTURNA', 'Lomo de atún rojo marcado a la sellada con costra de sésamo negro, sobre puré suave de boniato morado, reducción de aceto balsámico envejecido y aire de tinta de sepia.', 20.50, 'pesadilla_nocturna.jpg', 1),
-(12, 3, 'IMPACTO DE FUEGO', 'Masa artesanal de fermentación lenta de 48 horas, base de tomate San Marzano, mozzarella fior di latte, salame picante napolitano, hilos de chile rojo fresco y aceite infusionado en guindilla ahumada.', 17.00, 'impacto_fuego.jpg', 1),
+(9, 3, 'TIRO DE GRACIA', 'Corte de vacuno mayor madurado a la parrilla con acabado en láminas de oro comestible de 24k, sal escamada y una elegante reducción de Chianti Classico.', 22.00, 'tiro_gracia.webp', 1),
+(10, 3, 'SALTO TÁCTICO', 'Jarrete de ternera tierno cocinado a fuego lento en salsa de tomate picante y vino tinto, servido sobre cremoso risotto al azafrán con crujiente de gremolata cítrica y un toque chispeante de guindilla.', 21.00, 'salto_tactico.webp', 1),
+(11, 3, 'PESADILLA NOCTURNA', 'Lomo de atún rojo marcado a la sellada con costra de sésamo negro, sobre puré suave de boniato morado, reducción de aceto balsámico envejecido y aire de tinta de sepia.', 20.50, 'pesadilla_nocturna.webp', 1),
+(12, 3, 'IMPACTO DE FUEGO', 'Masa artesanal de fermentación lenta de 48 horas, base de tomate San Marzano, mozzarella fior di latte, salame picante napolitano, hilos de chile rojo fresco y aceite infusionado en guindilla ahumada.', 17.00, 'impacto_fuego.webp', 1),
 
 -- Postres (Cat 4)
-(13, 4, 'INFILTRACIÓN GELATA', 'Affogato al caffè con gelato di pistacchio artesanal, acompañado de galleta cantucci y shot de espresso hirviendo. Agente: Yoru.', 8.00, 'infiltracion_gelata.jpg', 1),
-(14, 4, 'FORMA ASTRAL', 'Panna cotta infusionada con vainilla bourbon y menta fresca, bañada en gelificada de moras carnosas y soplo azul. Agente: Astra.', 8.50, 'forma_astral.jpg', 1),
-(15, 4, 'RED DE ESPÍAS', 'Crujiente cannoli siciliano frito relleno de ricotta dulce de oveja, chips de chocolate negro al 70% y pistacho soplado dorado. Agente: Cypher.', 9.00, 'red_espias.jpg', 1),
-(16, 4, 'BLOQUEO DULCE', 'Capas voluptuosas de bizcocho Savoiardi impregnado en espresso concentrado y licor Amaretto, crema de mascarpone y micro-crujientes de avellana. Agente: Killjoy.', 9.50, 'bloqueo_dulce.jpg', 1),
+(13, 4, 'INFILTRACIÓN GELATA', 'Affogato al caffè con gelato di pistacchio artesanal, acompañado de galleta cantucci y shot de espresso hirviendo. Agente: Yoru.', 8.00, 'infiltracion_gelata.webp', 1),
+(14, 4, 'FORMA ASTRAL', 'Panna cotta infusionada con vainilla bourbon y menta fresca, bañada en gelificada de moras carnosas y soplo azul. Agente: Astra.', 8.50, 'forma_astral.webp', 1),
+(15, 4, 'RED DE ESPÍAS', 'Crujiente cannoli siciliano frito relleno de ricotta dulce de oveja, chips de chocolate negro al 70% y pistacho soplado dorado. Agente: Cypher.', 9.00, 'red_espias.webp', 1),
+(16, 4, 'BLOQUEO DULCE', 'Capas voluptuosas de bizcocho Savoiardi impregnado en espresso concentrado y licor Amaretto, crema de mascarpone y micro-crujientes de avellana. Agente: Killjoy.', 9.50, 'bloqueo_dulce.webp', 1),
 
 -- Bebidas (Cat 5)
-(17, 5, 'RADIANTE ENERGY DRINK', 'Bebida energética artesanal infusionada con frutas del bosque y toque cítrico.', 4.50, 'radiante_energy.jpg', 1),
-(18, 5, 'VINO DE LA CASA O AGUA', 'Copa de vino tinto de la casa o agua mineral embotellada.', 3.50, 'vino_agua.jpg', 1),
-(19, 5, 'CERVEZA O AGUA DE JADE', 'Cerveza artesanal de tirador o agua purificada de jade.', 4.00, 'cerveza_jade.jpg', 1);
+(17, 5, 'RADIANTE ENERGY DRINK', 'Bebida energética artesanal infusionada con frutas del bosque y toque cítrico.', 4.50, 'radiante_energy.webp', 1),
+(18, 5, 'VINO DE LA CASA O AGUA', 'Copa de vino tinto de la casa o agua mineral embotellada.', 3.50, 'vino_agua.webp', 1),
+(19, 5, 'CERVEZA O AGUA DE JADE', 'Cerveza artesanal de tirador o agua purificada de jade.', 4.00, 'cerveza_jade.webp', 1);
 
 -- 4. Relación Producto -> Alérgenos (producto_alergeno)
 INSERT INTO `producto_alergeno` (`producto_id`, `alergeno_id`) VALUES
@@ -246,9 +246,9 @@ INSERT INTO `producto_alergeno` (`producto_id`, `alergeno_id`) VALUES
 
 -- 5. Menús (Tabla `menus`)
 INSERT INTO `menus` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `activo`) VALUES
-(1, 'RUN IT BACK', 'Menú táctico inspirado en Phoenix.', 43.50, 'menu_run_it_back.jpg', 1),
-(2, 'RECON BOLT', 'Menú de precisión inspirado en Sova.', 36.00, 'menu_recon_bolt.jpg', 1),
-(3, 'RESURRECTION', 'Menú de equilibrio inspirado en Sage.', 39.50, 'menu_resurrection.jpg', 1);
+(1, 'RUN IT BACK', 'Menú táctico inspirado en Phoenix.', 43.50, 'menu_run_it_back.webp', 1),
+(2, 'RECON BOLT', 'Menú de precisión inspirado en Sova.', 36.00, 'menu_recon_bolt.webp', 1),
+(3, 'RESURRECTION', 'Menú de equilibrio inspirado en Sage.', 39.50, 'menu_resurrection.webp', 1);
 
 -- 6. Relación Menú -> Productos (menu_producto)
 INSERT INTO `menu_producto` (`menu_id`, `producto_id`, `tipo_plato`) VALUES

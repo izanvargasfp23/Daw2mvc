@@ -5,7 +5,7 @@ $lista_menus = $lista_menus ?? [];
 
 <!-- 1. BANNER HERO MENÚS -->
 <section class="w-100 p-0 m-0">
-    <img src="img/png/BannerMenu.jpg" alt="Valorant Eats Menús Banner" class="img-fluid w-100 d-block" style="max-height: 400px; object-fit: cover;">
+    <img src="img/webp/BannerMenu.webp" alt="Valorant Eats Menús Banner" class="img-fluid w-100 d-block" style="max-height: 400px; object-fit: cover;">
 </section>
 
 <!-- 2. CONTENIDO PRINCIPAL -->
@@ -30,7 +30,7 @@ $lista_menus = $lista_menus ?? [];
                         <div class="card card-producto h-100 border-0 p-3" style="background-color: #1b2733; border-radius: 4px;">
                             
                             <!-- Imagen dinámica desde la tabla `menus` -->
-                            <img src="img/png/<?= htmlspecialchars($menu['imagen']) ?>" class="card-img-top rounded-1 mb-3" alt="<?= htmlspecialchars($menu['nombre']) ?>" style="height: 230px; object-fit: cover;">
+                            <img src="img/webp/<?= htmlspecialchars($menu['imagen']) ?>" class="card-img-top rounded-1 mb-3" alt="<?= htmlspecialchars($menu['nombre']) ?>" style="height: 230px; object-fit: cover;">
                             
                             <div class="card-body p-0 d-flex flex-column justify-content-between">
                                 <div>

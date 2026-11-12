@@ -1,6 +1,6 @@
 <!-- Banner superior -->
 <div class="w-100 overflow-hidden mb-4">
-    <img src="img/png/BannerCarta.png" alt="La Carta" class="banner-carta-img">
+    <img src="img/webp/BannerCarta.webp" alt="La Carta" class="banner-carta-img">
 </div>
 
 <div class="container container-carta my-4">
@@ -19,7 +19,7 @@
             <?php if ($producto->getCategoriaId() == 1): ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card h-100 card-producto">
-                        <img src="img/png/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
+                        <img src="img/webp/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
                         <div class="card-body d-flex flex-column justify-content-between p-3">
                             <div>
                                 <h5 class="card-title text-uppercase fw-bold"><?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?></h5>
@@ -49,7 +49,7 @@
             <?php if ($producto->getCategoriaId() == 2): ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card h-100 card-producto">
-                        <img src="img/png/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
+                        <img src="img/webp/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
                         <div class="card-body d-flex flex-column justify-content-between p-3">
                             <div>
                                 <h5 class="card-title text-uppercase fw-bold"><?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?></h5>
@@ -79,7 +79,7 @@
             <?php if ($producto->getCategoriaId() == 3): ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card h-100 card-producto">
-                        <img src="img/png/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
+                        <img src="img/webp/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
                         <div class="card-body d-flex flex-column justify-content-between p-3">
                             <div>
                                 <h5 class="card-title text-uppercase fw-bold"><?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?></h5>
@@ -109,7 +109,7 @@
             <?php if ($producto->getCategoriaId() == 4): ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card h-100 card-producto">
-                        <img src="img/png/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
+                        <img src="img/webp/<?= $producto->getImagen() ?>" class="card-img-top" alt="<?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>">
                         <div class="card-body d-flex flex-column justify-content-between p-3">
                             <div>
                                 <h5 class="card-title text-uppercase fw-bold"><?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?></h5>
