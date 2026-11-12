@@ -1,6 +1,6 @@
 <!-- 1. HERO BANNER PRINCIPAL -->
 <section class="w-100 p-0 m-0">
-    <img src="img/png/BannerHome.png" alt="Valorant Eats Banner" class="img-fluid w-100 d-block" style="max-height: 480px; object-fit: cover;">
+    <img src="img/webp/BannerHome.webp" alt="Valorant Eats Banner" class="img-fluid w-100 d-block" style="max-height: 480px; object-fit: cover;">
 </section>
 
 <!-- 2. SECCIÓN: SOMOS VALORANT EATS -->
@@ -32,7 +32,7 @@
 
             <!-- Columna Imagen Local -->
             <div class="col-12 col-md-6 text-center">
-                <img src="img/png/Restaurante.jpg" alt="Fachada Valorant Eats" class="img-fluid rounded shadow-sm w-100" style="max-height: 420px; object-fit: cover;">
+                <img src="img/webp/Restaurante.webp" alt="Fachada Valorant Eats" class="img-fluid rounded shadow-sm w-100" style="max-height: 420px; object-fit: cover;">
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
         <div class="row align-items-center g-4 g-md-5">
             <!-- Columna Imagen Menús -->
             <div class="col-12 col-md-6 text-center">
-                <img src="img/png/Menus.jpg" alt="Nuestros Menús" class="img-fluid rounded shadow-sm w-100" style="max-height: 420px; object-fit: cover;">
+                <img src="img/webp/Menus.webp" alt="Nuestros Menús" class="img-fluid rounded shadow-sm w-100" style="max-height: 420px; object-fit: cover;">
             </div>
 
             <!-- Columna Texto y Botón -->
@@ -83,7 +83,7 @@
             <!-- Chef 1 -->
             <div class="col-12 col-md-4">
                 <div class="card h-100 border-0 bg-transparent">
-                    <img src="img/png/sovaChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Sova" style="height: 250px; object-fit: cover;">
+                    <img src="img/webp/sovaChef.webp" class="card-img-top rounded-1 w-100" alt="Chef Sova" style="height: 250px; object-fit: cover;">
                     <div class="card-body px-0 pt-3">
                         <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem; letter-spacing: 1px;">Especialista en trufa</small>
                         <h4 class="h5 fw-bold mb-2 text-dark" style="font-family: 'Inter', sans-serif;">Sova // El Secreto del Tartufo</h4>
@@ -97,7 +97,7 @@
             <!-- Chef 2 -->
             <div class="col-12 col-md-4">
                 <div class="card h-100 border-0 bg-transparent">
-                    <img src="img/png/phoenixChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Phoenix" style="height: 250px; object-fit: cover;">
+                    <img src="img/webp/phoenixChef.webp" class="card-img-top rounded-1 w-100" alt="Chef Phoenix" style="height: 250px; object-fit: cover;">
                     <div class="card-body px-0 pt-3">
                         <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem; letter-spacing: 1px;">Experto en leña</small>
                         <h4 class="h5 fw-bold mb-2 text-dark" style="font-family: 'Inter', sans-serif;">Phoenix // Pizza Napolitana Auténtica</h4>
@@ -111,7 +111,7 @@
             <!-- Chef 3 -->
             <div class="col-12 col-md-4">
                 <div class="card h-100 border-0 bg-transparent">
-                    <img src="img/png/sageChef.jpg" class="card-img-top rounded-1 w-100" alt="Chef Sage" style="height: 250px; object-fit: cover;">
+                    <img src="img/webp/sageChef.webp" class="card-img-top rounded-1 w-100" alt="Chef Sage" style="height: 250px; object-fit: cover;">
                     <div class="card-body px-0 pt-3">
                         <small class="fw-bold text-uppercase d-block mb-1 text-danger" style="font-size: 0.75rem; letter-spacing: 1px;">ARTESANA DULCE</small>
                         <h4 class="h5 fw-bold mb-2 text-dark" style="font-family: 'Inter', sans-serif;">Sage // La Maestría del Dulce</h4>
