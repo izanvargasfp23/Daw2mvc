@@ -51,17 +51,101 @@ class ProductoController
         $cantidadActual = 1;
         $editIndex = null;
 
-        // si vienes desde EDITAR en la cesta, cargamos tus ingredientes y cantidad
-        if (isset($_GET['edit']) && isset($_SESSION['carrito'][$_GET['edit']])) {
+        // si venimos de darle a EDITAR en el carrito, cargamos lo que ya habia
+        if (isset($_GET['edit'])) {
             $editIndex = $_GET['edit'];
-            $itemCesta = $_SESSION['carrito'][$editIndex];
-            $cantidadActual = $itemCesta['cantidad'];
-
-            if (!empty($itemCesta['ingredientes'])) {
-                $ingredientes = $itemCesta['ingredientes'];
+            if (isset($_SESSION['carrito'][$editIndex])) {
+                $cantidadActual = $_SESSION['carrito'][$editIndex]['cantidad'];
+                $ingredientes = $_SESSION['carrito'][$editIndex]['ingredientes'];
             }
         }
 
+        // si hemos pulsado algun boton del formulario (sumar, restar o añadir)
+        if ($_POST) {
+            
+            // guardamos lo que ya estaba puesto en el formulario
+            if (isset($_POST['cantidad'])) {
+                $cantidadActual = $_POST['cantidad'];
+            }
+            if (isset($_POST['edit_index'])) {
+                $editIndex = $_POST['edit_index'];
+            }
+            if (isset($_POST['ingredientes'])) {
+                $ingredientes = $_POST['ingredientes'];
+            }
+
+            // si le dio al + del producto
+            if (isset($_POST['sumar_prod'])) {
+                $cantidadActual = $cantidadActual + 1;
+            }
+
+            // si le dio al - del producto (que no baje de 1)
+            if (isset($_POST['restar_prod'])) {
+                if ($cantidadActual > 1) {
+                    $cantidadActual = $cantidadActual - 1;
+                }
+            }
+
+            // si le dio al + de algun ingrediente (tope 5)
+            if (isset($_POST['sumar_ing'])) {
+                $pos = $_POST['sumar_ing'];
+                if ($ingredientes[$pos]['cantidad'] < 5) {
+                    $ingredientes[$pos]['cantidad'] = $ingredientes[$pos]['cantidad'] + 1;
+                }
+            }
+
+            // si le dio al - de algun ingrediente (tope 0)
+            if (isset($_POST['restar_ing'])) {
+                $pos = $_POST['restar_ing'];
+                if ($ingredientes[$pos]['cantidad'] > 0) {
+                    $ingredientes[$pos]['cantidad'] = $ingredientes[$pos]['cantidad'] - 1;
+                }
+            }
+
+            // si le dio al boton rojo de AÑADIR AL CARRITO
+            if (isset($_POST['anadir_carrito'])) {
+                
+                if (!isset($_SESSION['carrito'])) {
+                    $_SESSION['carrito'] = [];
+                }
+
+                // si estabamos editando uno que ya estaba en el carrito, lo cambiamos
+                if ($editIndex != "" && isset($_SESSION['carrito'][$editIndex])) {
+                    $_SESSION['carrito'][$editIndex]['cantidad'] = $cantidadActual;
+                    $_SESSION['carrito'][$editIndex]['ingredientes'] = $ingredientes;
+                } else {
+                    // si es nuevo, miramos si ya existe uno igual para sumar cantidad
+                    $yaEstaba = false;
+                    foreach ($_SESSION['carrito'] as $i => $item) {
+                        if ($item['tipo'] == 'producto' && $item['id'] == $id && $item['ingredientes'] == $ingredientes) {
+                            $_SESSION['carrito'][$i]['cantidad'] = $_SESSION['carrito'][$i]['cantidad'] + $cantidadActual;
+                            $yaEstaba = true;
+                        }
+                    }
+
+                    // si no estaba, lo metemos nuevo al final del carrito
+                    if ($yaEstaba == false) {
+                        $_SESSION['carrito'][] = [
+                            'tipo' => 'producto',
+                            'id' => $producto->getId(),
+                            'nombre' => $producto->getNombre(),
+                            'precio' => $producto->getPrecio(),
+                            'imagen' => $producto->getImagen(),
+                            'categoria_id' => $producto->getCategoriaId(),
+                            'cantidad' => $cantidadActual,
+                            'platos' => [],
+                            'ingredientes' => $ingredientes
+                        ];
+                    }
+                }
+
+                // nos vamos al carrito
+                header("Location: index.php?controller=Carrito&action=index");
+                exit();
+            }
+        }
+
+        // enseñamos la vista de detalle
         $view = "views/detalle.php";
         include_once("views/main.php");
     }
