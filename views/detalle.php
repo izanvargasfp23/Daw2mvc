@@ -1,26 +1,24 @@
 <div class="container container-carta py-4">
 
-    <!-- boton para volver -->
+    <!-- enlace para volver a la carta -->
     <div class="mb-4">
         <a href="index.php?controller=Producto&action=carta" class="btn-volver">
             ← VOLVER A CARTA
         </a>
     </div>
 
-    <!-- formulario para añadir al carrito -->
-    <form action="index.php?controller=Carrito&action=add" method="POST">
-        <input type="hidden" name="producto_id" value="<?= $producto->getId() ?>">
-
-        <?php if (isset($editIndex)): ?>
-            <input type="hidden" name="edit_index" value="<?= $editIndex ?>">
-        <?php endif; ?>
+    <!-- formulario que se envia a si mismo al pulsar los botones -->
+    <form action="index.php?controller=Producto&action=detalle&id=<?= $producto->getId() ?>" method="POST">
+        
+        <!-- campo oculto por si venimos de editar desde el carrito -->
+        <input type="hidden" name="edit_index" value="<?= $editIndex ?>">
 
         <div class="row g-4">
             
-            <!-- COLUMNA IZQUIERDA -->
+            <!-- columna izquierda con la foto, descripcion y botones principales -->
             <div class="col-12 col-lg-6">
                 
-                <!-- foto -->
+                <!-- foto del plato -->
                 <div class="mb-4">
                     <img src="img/webp/<?= $producto->getImagen() ?>" 
                          alt="<?= $producto->getNombre() ?>" 
@@ -28,7 +26,7 @@
                          style="max-height: 400px; object-fit: cover; border-radius: 4px;">
                 </div>
 
-                <!-- descripcion -->
+                <!-- descripcion del plato si tiene texto -->
                 <?php if ($producto->getDescripcion() != ""): ?>
                     <div class="p-3 mb-4" style="background-color: #111923; border: 1px solid #242e3d; border-radius: 4px;">
                         <span class="d-block mb-1 text-danger fw-bold" style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px;">
@@ -40,16 +38,16 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- cantidad y boton de comprar -->
+                <!-- botones para elegir cantidad y añadir al carrito -->
                 <div class="d-flex align-items-center gap-3">
                     <div class="d-inline-flex align-items-center bg-dark border border-secondary">
-                        <button type="button" class="btn text-white fw-bold px-3 fs-5" onclick="restarProducto()">-</button>
-                        <input type="number" id="cantidad_producto" name="cantidad" value="1" min="1" class="text-center border-0 bg-transparent text-white fw-bold" style="width: 40px;" readonly>
-                        <button type="button" class="btn text-white fw-bold px-3 fs-5" onclick="sumarProducto()">+</button>
+                        <button type="submit" name="restar_prod" class="btn text-white fw-bold px-3 fs-5">-</button>
+                        <input type="number" name="cantidad" value="<?= $cantidadActual ?>" min="1" class="text-center border-0 bg-transparent text-white fw-bold" style="width: 40px;" readonly>
+                        <button type="submit" name="sumar_prod" class="btn text-white fw-bold px-3 fs-5">+</button>
                     </div>
                     
                     <div class="flex-grow-1">
-                        <button type="submit" class="boton-red w-100 m-0">
+                        <button type="submit" name="anadir_carrito" class="boton-red w-100 m-0">
                             AÑADIR AL CARRITO
                         </button>
                     </div>
@@ -57,7 +55,7 @@
 
             </div>
 
-            <!-- COLUMNA DERECHA -->
+            <!-- columna derecha con el nombre, puntos, alergenos e ingredientes -->
             <div class="col-12 col-lg-6">
                 
                 <span class="d-block mb-1 text-danger fw-bold" style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px;">
@@ -68,7 +66,7 @@
                     <?= $producto->getNombre() ?>
                 </h1>
 
-                <!-- puntos que da el producto -->
+                <!-- calculo de puntos segun la categoria del plato -->
                 <?php 
                     $puntos = 500;
                     if ($producto->getCategoriaId() == 2) {
@@ -85,7 +83,7 @@
                     <span class="text-white-50 small">puntos con este pedido!</span>
                 </div>
 
-                <!-- alergenos -->
+                <!-- lista de alergenos si el plato tiene alguno -->
                 <?php if (!empty($alergenos)): ?>
                     <div class="mb-4">
                         <span class="d-block mb-2 text-danger fw-bold" style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px;">
@@ -105,7 +103,7 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- ingredientes -->
+                <!-- caja con todos los ingredientes y sus botones de sumar y restar -->
                 <div class="p-4" style="background-color: #111923; border: 1px solid #242e3d; border-radius: 4px;">
                     <h3 class="text-white mb-3" style="font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px;">
                         INGREDIENTES
@@ -118,12 +116,15 @@
                                     <span class="text-white text-uppercase fw-semibold" style="font-size: 14px;">
                                         <?= $ing['nombre'] ?>
                                     </span>
+                                    
+                                    <!-- guardamos el nombre del ingrediente para no perderlo al recargar -->
                                     <input type="hidden" name="ingredientes[<?= $i ?>][nombre]" value="<?= $ing['nombre'] ?>">
                                     
+                                    <!-- botones para subir o bajar la cantidad de este ingrediente -->
                                     <div class="d-inline-flex align-items-center bg-dark border border-secondary">
-                                        <button type="button" class="btn text-white fw-bold px-2 py-0 fs-5" onclick="restarIngrediente(<?= $i ?>)">-</button>
-                                        <input type="number" id="ingrediente_<?= $i ?>" name="ingredientes[<?= $i ?>][cantidad]" value="<?= intval($ing['cantidad']) ?>" min="0" max="5" class="text-center border-0 bg-transparent text-white fw-bold" style="width: 35px;" readonly>
-                                        <button type="button" class="btn text-white fw-bold px-2 py-0 fs-5" onclick="sumarIngrediente(<?= $i ?>)">+</button>
+                                        <button type="submit" name="restar_ing" value="<?= $i ?>" class="btn text-white fw-bold px-2 py-0 fs-5">-</button>
+                                        <input type="number" name="ingredientes[<?= $i ?>][cantidad]" value="<?= intval($ing['cantidad']) ?>" min="0" max="5" class="text-center border-0 bg-transparent text-white fw-bold" style="width: 35px;" readonly>
+                                        <button type="submit" name="sumar_ing" value="<?= $i ?>" class="btn text-white fw-bold px-2 py-0 fs-5">+</button>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -136,39 +137,3 @@
         </div>
     </form>
 </div>
-
-<script>
-// sumar cantidad del producto
-function sumarProducto() {
-    var input = document.getElementById('cantidad_producto');
-    var numero = parseInt(input.value);
-    input.value = numero + 1;
-}
-
-// restar cantidad del producto
-function restarProducto() {
-    var input = document.getElementById('cantidad_producto');
-    var numero = parseInt(input.value);
-    if (numero > 1) {
-        input.value = numero - 1;
-    }
-}
-
-// sumar un ingrediente
-function sumarIngrediente(posicion) {
-    var input = document.getElementById('ingrediente_' + posicion);
-    var numero = parseInt(input.value);
-    if (numero < 5) {
-        input.value = numero + 1;
-    }
-}
-
-// restar un ingrediente
-function restarIngrediente(posicion) {
-    var input = document.getElementById('ingrediente_' + posicion);
-    var numero = parseInt(input.value);
-    if (numero > 0) {
-        input.value = numero - 1;
-    }
-}
-</script>
