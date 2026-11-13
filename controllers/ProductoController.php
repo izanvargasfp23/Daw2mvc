@@ -47,6 +47,21 @@ class ProductoController
         $ingredientes = IngredienteDAO::getByProductoId($id);
         $alergenos = AlergenoDAO::getByProductoId($id);
 
+        // valores por defecto si vienes de la carta
+        $cantidadActual = 1;
+        $editIndex = null;
+
+        // si vienes desde EDITAR en la cesta, cargamos tus ingredientes y cantidad
+        if (isset($_GET['edit']) && isset($_SESSION['carrito'][$_GET['edit']])) {
+            $editIndex = $_GET['edit'];
+            $itemCesta = $_SESSION['carrito'][$editIndex];
+            $cantidadActual = $itemCesta['cantidad'];
+
+            if (!empty($itemCesta['ingredientes'])) {
+                $ingredientes = $itemCesta['ingredientes'];
+            }
+        }
+
         $view = "views/detalle.php";
         include_once("views/main.php");
     }
