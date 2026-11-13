@@ -3,13 +3,17 @@
     <!-- boton para volver -->
     <div class="mb-4">
         <a href="index.php?controller=Producto&action=carta" class="btn-volver">
-            &larr; VOLVER A CARTA
+            ← VOLVER A CARTA
         </a>
     </div>
 
     <!-- formulario para añadir al carrito -->
     <form action="index.php?controller=Carrito&action=add" method="POST">
         <input type="hidden" name="producto_id" value="<?= $producto->getId() ?>">
+
+        <?php if (isset($editIndex)): ?>
+            <input type="hidden" name="edit_index" value="<?= $editIndex ?>">
+        <?php endif; ?>
 
         <div class="row g-4">
             

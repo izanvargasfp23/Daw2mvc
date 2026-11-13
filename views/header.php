@@ -1,7 +1,9 @@
 <?php 
 $total_carrito = 0;
 if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
-    $total_carrito = count($_SESSION['carrito']);
+    foreach ($_SESSION['carrito'] as $item) {
+        $total_carrito = $total_carrito + $item['cantidad'];
+    }
 }
 ?>
 
@@ -10,7 +12,7 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
         
         <!-- Logo (Lleva a la Home) -->
         <a href="index.php?controller=Home&action=index" class="logo text-decoration-none">
-            <img src="img/Logo/Logo.png" alt="Logo Valorant Eats">
+            <img src="img/Logo/Logo.webp" alt="Logo Valorant Eats">
         </a>
 
         <!-- Botón Hamburguesa (Solo se ve en móvil) -->
@@ -49,7 +51,7 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
                     <?php endif; ?>
                 </a>
             </div>
-
+            
         </div>
 
     </div>

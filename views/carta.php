@@ -8,7 +8,7 @@
     <!-- BOTÓN VOLVER AL INICIO -->
     <div class="mb-2">
         <a href="index.php?controller=Home&action=index" class="btn-volver">
-            &larr; VOLVER AL INICIO
+            ← VOLVER AL INICIO
         </a>
     </div>
 
