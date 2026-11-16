@@ -38,9 +38,19 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
 
             <!-- Iconos de la derecha -->
             <div class="iconos-cabecera d-flex align-items-center justify-content-center gap-3 pb-3 pb-lg-0">
-                <a href="index.php?controller=Usuario&action=login" class="text-decoration-none">
-                    <img src="img/svg/avatar.svg" alt="Mi Cuenta" class="icono-header" style="width: 22px; height: 22px;">
-                </a>
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <!-- si has iniciado sesion, al pulsar en tu nombre entras a tu perfil -->
+                    <a href="index.php?controller=Usuario&action=perfil" class="badge-agente-header text-decoration-none d-inline-flex align-items-center gap-2" title="Mi perfil">
+                        <span class="text-white text-uppercase fw-bold">
+                            <?= htmlspecialchars($_SESSION['usuario_nombre']) ?>
+                        </span>
+                    </a>
+                <?php else: ?>
+                    <!-- si no has iniciado sesion, el icono lleva al login -->
+                    <a href="index.php?controller=Usuario&action=login" class="text-decoration-none" title="Iniciar sesión">
+                        <img src="img/svg/avatar.svg" alt="Mi Cuenta" class="icono-header" width="22" height="22">
+                    </a>
+                <?php endif; ?>
 
                 <a href="index.php?controller=Carrito&action=index" class="position-relative text-decoration-none">
                     <img src="img/svg/carrito-de-compras.svg" alt="Carrito" class="icono-header" style="width: 22px; height: 22px;">

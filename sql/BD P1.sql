@@ -12,6 +12,7 @@ CREATE TABLE `usuarios` (
   `telefono` VARCHAR(20),
   `direccion` VARCHAR(255),
   `fecha_nacimiento` DATE,
+  `puntos` INT NOT NULL DEFAULT 0,
   `rol` VARCHAR(20) NOT NULL DEFAULT 'usuario' COMMENT 'Valores: usuario, admin',
   `fecha_registro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -98,6 +99,7 @@ CREATE TABLE `ofertas` (
   `tipo` VARCHAR(20) NOT NULL COMMENT 'Valores: descuento, 2x1, combo, codigo',
   `valor` DECIMAL(10,2),
   `codigo` VARCHAR(50) UNIQUE,
+  `puntos_coste` INT NOT NULL DEFAULT 100,
   `fecha_inicio` DATETIME NOT NULL,
   `fecha_fin` DATETIME,
   `activa` BOOLEAN NOT NULL DEFAULT TRUE
@@ -112,7 +114,17 @@ CREATE TABLE `oferta_producto` (
   CONSTRAINT `fk_op_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE
 );
 
--- 12. TABLA PEDIDOS
+-- 12. TABLA USUARIO_OFERTAS (Ofertas canjeadas con VP por cada usuario)
+CREATE TABLE `usuario_ofertas` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `usuario_id` INT NOT NULL,
+  `oferta_id` INT NOT NULL,
+  `fecha_canje` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_uo_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_uo_oferta` FOREIGN KEY (`oferta_id`) REFERENCES `ofertas` (`id`) ON DELETE CASCADE
+);
+
+-- 13. TABLA PEDIDOS
 CREATE TABLE `pedidos` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `usuario_id` INT NOT NULL,
@@ -126,7 +138,7 @@ CREATE TABLE `pedidos` (
   CONSTRAINT `fk_pedidos_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
 );
 
--- 13. TABLA PEDIDO_DETALLE
+-- 14. TABLA PEDIDO_DETALLE
 CREATE TABLE `pedido_detalle` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `pedido_id` INT NOT NULL,
@@ -139,7 +151,7 @@ CREATE TABLE `pedido_detalle` (
   CONSTRAINT `fk_pd_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE SET NULL
 );
 
--- 14. TABLA PEDIDO_DETALLE_INGREDIENTE
+-- 15. TABLA PEDIDO_DETALLE_INGREDIENTE
 CREATE TABLE `pedido_detalle_ingrediente` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `pedido_detalle_id` INT NOT NULL,
@@ -209,39 +221,22 @@ INSERT INTO `productos` (`id`, `categoria_id`, `nombre`, `descripcion`, `precio`
 
 -- 4. Relación Producto -> Alérgenos (producto_alergeno)
 INSERT INTO `producto_alergeno` (`producto_id`, `alergeno_id`) VALUES
--- Burbuja de Barricada: Lácteos
 (1, 2),
--- Fuego Fatuo: Gluten, Lácteos
 (2, 1), (2, 2),
--- Dardo Revelador: Gluten, Lácteos, Huevos
 (3, 1), (3, 2), (3, 3),
--- Burrata Ahumada de la Sombra: Gluten, Lácteos
 (4, 1), (4, 2),
--- Bowl de Marisco Orbital: Moluscos
 (5, 8),
--- Corte de Viento: Gluten, Pescado
 (6, 1), (6, 4),
--- Llamada del Veneno: Gluten, Lácteos
 (7, 1), (7, 2),
--- Bocado Imperial: Gluten, Lácteos
 (8, 1), (8, 2),
--- Tiro de Gracia: Sulfitos
 (9, 7),
--- Salto Táctico: Lácteos, Sulfitos
 (10, 2), (10, 7),
--- Pesadilla Nocturna: Pescado, Sésamo, Sulfitos, Moluscos
 (11, 4), (11, 6), (11, 7), (11, 8),
--- Impacto de Fuego: Gluten, Lácteos
 (12, 1), (12, 2),
--- Infiltración Gelata: Gluten, Lácteos, Huevos
 (13, 1), (13, 2), (13, 3),
--- Forma Astral: Lácteos
 (14, 2),
--- Red de Espías: Gluten, Lácteos
 (15, 1), (15, 2),
--- Bloqueo Dulce: Gluten, Lácteos, Huevos
 (16, 1), (16, 2), (16, 3),
--- Cerveza o Agua de Jade: Gluten
 (19, 1);
 
 -- 5. Menús (Tabla `menus`)
@@ -252,23 +247,18 @@ INSERT INTO `menus` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `activo`
 
 -- 6. Relación Menú -> Productos (menu_producto)
 INSERT INTO `menu_producto` (`menu_id`, `producto_id`, `tipo_plato`) VALUES
--- RUN IT BACK (Menu ID 1)
-(1, 12, 'PRIMERO'), -- IMPACTO DE FUEGO (Pizza Diávola)
-(1, 9,  'SEGUNDO'), -- TIRO DE GRACIA (Bistecca con oro)
-(1, 16, 'POSTRE'),  -- BLOQUEO DULCE (Tiramisú)
-(1, 17, 'BEBIDA'),  -- RADIANTE ENERGY DRINK
-
--- RECON BOLT (Menu ID 2)
-(2, 3,  'PRIMERO'), -- DARDO REVELADOR (Arancini / Carpaccio)
-(2, 11, 'SEGUNDO'), -- PESADILLA NOCTURNA (Atún rojo)
-(2, 13, 'POSTRE'),  -- INFILTRACIÓN GELATA (Affogato)
-(2, 18, 'BEBIDA'),  -- VINO DE LA CASA O AGUA
-
--- RESURRECTION (Menu ID 3)
-(3, 1,  'PRIMERO'), -- BURBUJA DE BARRICADA (Caprese)
-(3, 9,  'SEGUNDO'), -- TIRO DE GRACIA (Chuletón 24K)
-(3, 14, 'POSTRE'),  -- FORMA ASTRAL (Panna Cotta)
-(3, 19, 'BEBIDA');  -- CERVEZA O AGUA DE JADE
+(1, 12, 'PRIMERO'),
+(1, 9,  'SEGUNDO'),
+(1, 16, 'POSTRE'),
+(1, 17, 'BEBIDA'),
+(2, 3,  'PRIMERO'),
+(2, 11, 'SEGUNDO'),
+(2, 13, 'POSTRE'),
+(2, 18, 'BEBIDA'),
+(3, 1,  'PRIMERO'),
+(3, 9,  'SEGUNDO'),
+(3, 14, 'POSTRE'),
+(3, 19, 'BEBIDA');
 
 -- 7. Catálogo de Ingredientes
 INSERT INTO `ingredientes` (`id`, `nombre`, `precio_extra`, `activo`) VALUES
@@ -309,41 +299,29 @@ INSERT INTO `ingredientes` (`id`, `nombre`, `precio_extra`, `activo`) VALUES
 
 -- 8. Inserción de Ingredientes por Producto (producto_ingrediente)
 INSERT INTO `producto_ingrediente` (`producto_id`, `ingrediente_id`, `cantidad`) VALUES
--- Burbuja de Barricada (1)
 (1, 1, 1.00), (1, 2, 1.00),
--- Fuego Fatuo (2)
 (2, 3, 1.00), (2, 4, 1.00), (2, 24, 1.00),
--- Dardo Revelador (3)
 (3, 5, 1.00), (3, 6, 1.00),
--- Burrata Ahumada de la Sombra (4)
 (4, 7, 1.00), (4, 5, 1.00),
--- Bowl de Marisco Orbital (5)
 (5, 8, 1.00), (5, 9, 1.00),
--- Corte de Viento (6)
 (6, 10, 1.00), (6, 11, 1.00),
--- Llamada del Veneno (7)
 (7, 12, 1.00), (7, 13, 1.00),
--- Bocado Imperial (8)
 (8, 14, 1.00), (8, 15, 1.00),
--- Tiro de Gracia (9)
 (9, 16, 1.00), (9, 17, 1.00),
--- Salto Táctico (10)
 (10, 18, 1.00), (10, 19, 1.00),
--- Pesadilla Nocturna (11)
 (11, 20, 1.00), (11, 21, 1.00), (11, 22, 1.00),
--- Impacto de Fuego (12)
 (12, 23, 1.00), (12, 1, 1.00), (12, 24, 1.00),
--- Infiltración Gelata (13)
 (13, 25, 1.00), (13, 26, 1.00),
--- Forma Astral (14)
 (14, 27, 1.00), (14, 32, 1.00),
--- Red de Espías (15)
 (15, 28, 1.00), (15, 4, 1.00), (15, 29, 1.00),
--- Bloqueo Dulce (16)
 (16, 30, 1.00), (16, 31, 1.00), (16, 26, 1.00),
--- Radiante Energy Drink (17)
 (17, 32, 1.00),
--- Vino de la Casa o Agua (18)
 (18, 33, 1.00),
--- Cerveza o Agua de Jade (19)
 (19, 34, 1.00);
+
+-- 9. Ofertas tácticas canjeables con VP
+INSERT INTO `ofertas` (`id`, `nombre`, `descripcion`, `tipo`, `valor`, `codigo`, `puntos_coste`, `fecha_inicio`, `activa`) VALUES
+(1, 'DESCUENTO RECLUTA (10%)', '10% de descuento en el total de tu comanda.', 'descuento', 10.00, 'SPIKE10', 10000, NOW(), 1),
+(2, 'DESCUENTO RADIANITA (20%)', '20% de descuento para agentes veteranos.', 'descuento', 20.00, 'RADIANITE20', 25000, NOW(), 1),
+(3, 'DESCUENTO ACE (35%)', '35% de descuento en toda la carta táctica.', 'descuento', 35.00, 'ACE35', 50000, NOW(), 1)
+ON DUPLICATE KEY UPDATE `nombre` = VALUES(`nombre`), `puntos_coste` = VALUES(`puntos_coste`);

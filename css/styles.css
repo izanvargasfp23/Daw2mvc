@@ -336,3 +336,11 @@ section.seccion-menus-home {
     margin-top: 25px;
 }
 
+
+/* PERFIL USUARIO */
+/* Panel de perfil de usuario */
+.tarjeta-perfil {
+    background-color: #161F2A;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
