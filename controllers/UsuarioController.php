@@ -213,4 +213,31 @@ class UsuarioController
         header("Location: index.php?controller=Usuario&action=perfil");
         exit();
     }
+
+    // guarda los cambios de nombre, telefono y direccion desde el perfil
+    public function editarPerfil()
+    {
+        if (!isset($_SESSION['usuario_id'])) {
+            header("Location: index.php?controller=Usuario&action=login");
+            exit();
+        }
+
+        if ($_POST) {
+            $idUser = $_SESSION['usuario_id'];
+            $nombre = trim($_POST['nombre']);
+            $email = trim($_POST['email']);
+            $telefono = trim($_POST['telefono']);
+            $direccion = trim($_POST['direccion']);
+            $password = $_POST['password'];
+
+            UsuarioDAO::actualizarPerfil($idUser, $nombre, $email, $telefono, $direccion, $password);
+
+            $_SESSION['usuario_nombre'] = $nombre;
+            $_SESSION['usuario_email'] = $email;
+            $_SESSION['mensaje_canje'] = "Datos del agente actualizados correctamente.";
+        }
+
+        header("Location: index.php?controller=Usuario&action=perfil");
+        exit();
+    }
 }

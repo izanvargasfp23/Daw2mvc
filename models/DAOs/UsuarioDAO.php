@@ -135,4 +135,25 @@ class UsuarioDAO
         $con->close();
         return true;
     }
+
+    // actualiza los datos del perfil desde el expediente del agente
+    public static function actualizarPerfil($usuarioId, $nombre, $email, $telefono, $direccion, $password)
+    {
+        $con = DataBase::connect();
+
+        if ($password != "") {
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $con->prepare("UPDATE usuarios SET nombre = ?, email = ?, telefono = ?, direccion = ?, password = ? WHERE id = ?");
+            $stmt->bind_param("sssssi", $nombre, $email, $telefono, $direccion, $passwordHash, $usuarioId);
+        } else {
+            $stmt = $con->prepare("UPDATE usuarios SET nombre = ?, email = ?, telefono = ?, direccion = ? WHERE id = ?");
+            $stmt->bind_param("ssssi", $nombre, $email, $telefono, $direccion, $usuarioId);
+        }
+
+        $ok = $stmt->execute();
+        $stmt->close();
+        $con->close();
+
+        return $ok;
+    }
 }
