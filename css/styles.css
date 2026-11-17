@@ -204,6 +204,11 @@ div.card.card-producto .card-text {
     font-weight: bold;
 }
 
+div.card.card-producto .icono-vp-card {
+    width: 16px;
+    height: 16px;
+}
+
 /* boton de añadir dentro de la card */
 a.btn.btn-valorant {
     background-color: #ff4655;
