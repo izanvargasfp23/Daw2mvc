@@ -149,4 +149,21 @@ class ProductoController
         $view = "views/detalle.php";
         include_once("views/main.php");
     }
+
+    // public function api()
+    // {
+    //     $metodo = $_SERVER['REQUEST_METHOD'];
+    //     if($metodo == "GET"){
+    //         if($_GET['function'] == "todos"){
+    //             $productos = ProductoDAO::getAll();
+    //             json_encode($productos);
+    //         }else if($_GET['function'] == "ordenMayorMenor"){
+    //             //ORDENAR
+    //         }
+
+    //     }else if($metodo == "POST"){
+
+    //     }
+
+    // }
 }

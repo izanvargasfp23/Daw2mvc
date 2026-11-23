@@ -13,7 +13,7 @@ class ProductoDAO
         $result = $stmt->get_result();
 
         $productos = [];
-        while ($producto = $result->fetch_object("Producto")) {
+        while ($producto = $result->/*cambiar a fetch_assoc para el servidor (JS) */ fetch_object("Producto")) {
             $productos[] = $producto;
         }
 
