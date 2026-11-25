@@ -356,3 +356,48 @@ section.seccion-menus-home {
     padding: 8px 18px;
     font-size: 1rem;
 }
+
+/* PROCESO PAGO */
+/* opciones de pago en proceso de compra */
+.caja-metodos-pago .radio-pago {
+    display: none;
+}
+
+.caja-metodos-pago .opcion-pago {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111A23;
+    cursor: pointer;
+}
+
+/* circulito negro a la izquierda */
+.caja-metodos-pago .opcion-pago::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #111A23;
+    border: 2px solid #111A23;
+    display: inline-block;
+}
+
+/* cuando esta seleccionado se pone rojo por dentro */
+.caja-metodos-pago .radio-pago:checked + .opcion-pago::before {
+    background-color: #FF424E;
+}
+
+/* ocultar inputs de tarjeta por defecto y enseñarlos solo si elige tarjeta */
+.caja-metodos-pago .caja-tarjeta {
+    display: none;
+}
+
+.caja-metodos-pago #pagoTarjeta:checked ~ .caja-tarjeta {
+    display: block;
+}

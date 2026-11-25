@@ -64,16 +64,29 @@ class PedidoDAO
                 foreach ($item['ingredientes'] as $ing) {
                     $nombreIng = $ing['nombre'];
                     $cantIng = intval($ing['cantidad']);
+                    
+                    // miramos cuanto traia el plato normal (por defecto 1)
+                    $cantBase = 1;
+                    if (isset($ing['cantidad_base'])) {
+                        $cantBase = intval($ing['cantidad_base']);
+                    }
+
+                    // miramos cuanto cuesta cada extra de este ingrediente
+                    $precioExtraUnit = 0.00;
+                    if (isset($ing['precio_extra'])) {
+                        $precioExtraUnit = floatval($ing['precio_extra']);
+                    }
 
                     $accion = "incluido";
+                    $precioExtra = 0.00;
+
                     if ($cantIng == 0) {
                         $accion = "quitado";
-                    }
-                    if ($cantIng > 1) {
+                    } else if ($cantIng > $cantBase) {
                         $accion = "añadido";
+                        $precioExtra = ($cantIng - $cantBase) * $precioExtraUnit;
                     }
 
-                    $precioExtra = 0.00;
                     $stmtIng = $con->prepare("INSERT INTO pedido_detalle_ingrediente (pedido_detalle_id, ingrediente_id, nombre_ingrediente, precio_extra, accion) VALUES (?, NULL, ?, ?, ?)");
                     $stmtIng->bind_param("isds", $detalleId, $nombreIng, $precioExtra, $accion);
                     $stmtIng->execute();
