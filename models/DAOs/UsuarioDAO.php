@@ -37,12 +37,12 @@ class UsuarioDAO
         return $ok;
     }
 
-    // guarda la direccion y el telefono cuando el usuario hace un pedido
-    public static function actualizarDatosEnvio($usuarioId, $telefono, $direccion)
+    // guarda la calle, cp, ciudad y el telefono cuando el usuario hace un pedido
+    public static function actualizarDatosEnvio($usuarioId, $telefono, $direccion, $cp, $ciudad)
     {
         $con = DataBase::connect();
-        $stmt = $con->prepare("UPDATE usuarios SET telefono = ?, direccion = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $telefono, $direccion, $usuarioId);
+        $stmt = $con->prepare("UPDATE usuarios SET telefono = ?, direccion = ?, cp = ?, ciudad = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $telefono, $direccion, $cp, $ciudad, $usuarioId);
         $ok = $stmt->execute();
 
         $stmt->close();
@@ -67,11 +67,11 @@ class UsuarioDAO
         return $ofertas;
     }
 
-    // saca las ofertas que este usuario ya ha canjeado antes
+    // saca las ofertas que este usuario ha canjeado y TODAVIA NO ha gastado
     public static function obtenerOfertasCanjeadas($usuarioId)
     {
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT o.*, uo.fecha_canje FROM usuario_ofertas uo INNER JOIN ofertas o ON uo.oferta_id = o.id WHERE uo.usuario_id = ? ORDER BY uo.fecha_canje DESC");
+        $stmt = $con->prepare("SELECT uo.id AS canje_id, o.*, uo.fecha_canje FROM usuario_ofertas uo INNER JOIN ofertas o ON uo.oferta_id = o.id WHERE uo.usuario_id = ? AND uo.usada = 0 ORDER BY uo.fecha_canje DESC");
         $stmt->bind_param("i", $usuarioId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -137,17 +137,17 @@ class UsuarioDAO
     }
 
     // actualiza los datos del perfil desde el expediente del agente
-    public static function actualizarPerfil($usuarioId, $nombre, $email, $telefono, $direccion, $password)
+    public static function actualizarPerfil($usuarioId, $nombre, $email, $telefono, $direccion, $cp, $ciudad, $password)
     {
         $con = DataBase::connect();
 
         if ($password != "") {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $con->prepare("UPDATE usuarios SET nombre = ?, email = ?, telefono = ?, direccion = ?, password = ? WHERE id = ?");
-            $stmt->bind_param("sssssi", $nombre, $email, $telefono, $direccion, $passwordHash, $usuarioId);
+            $stmt = $con->prepare("UPDATE usuarios SET nombre = ?, email = ?, telefono = ?, direccion = ?, cp = ?, ciudad = ?, password = ? WHERE id = ?");
+            $stmt->bind_param("sssssssi", $nombre, $email, $telefono, $direccion, $cp, $ciudad, $passwordHash, $usuarioId);
         } else {
-            $stmt = $con->prepare("UPDATE usuarios SET nombre = ?, email = ?, telefono = ?, direccion = ? WHERE id = ?");
-            $stmt->bind_param("ssssi", $nombre, $email, $telefono, $direccion, $usuarioId);
+            $stmt = $con->prepare("UPDATE usuarios SET nombre = ?, email = ?, telefono = ?, direccion = ?, cp = ?, ciudad = ? WHERE id = ?");
+            $stmt->bind_param("ssssssi", $nombre, $email, $telefono, $direccion, $cp, $ciudad, $usuarioId);
         }
 
         $ok = $stmt->execute();

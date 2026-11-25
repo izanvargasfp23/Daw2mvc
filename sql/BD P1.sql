@@ -11,6 +11,8 @@ CREATE TABLE `usuarios` (
   `password` VARCHAR(255) NOT NULL,
   `telefono` VARCHAR(20),
   `direccion` VARCHAR(255),
+  `cp` VARCHAR(10),
+  `ciudad` VARCHAR(100),
   `fecha_nacimiento` DATE,
   `puntos` INT NOT NULL DEFAULT 0,
   `rol` VARCHAR(20) NOT NULL DEFAULT 'usuario' COMMENT 'Valores: usuario, admin',
@@ -120,6 +122,7 @@ CREATE TABLE `usuario_ofertas` (
   `usuario_id` INT NOT NULL,
   `oferta_id` INT NOT NULL,
   `fecha_canje` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `usada` BOOLEAN NOT NULL DEFAULT FALSE,
   CONSTRAINT `fk_uo_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_uo_oferta` FOREIGN KEY (`oferta_id`) REFERENCES `ofertas` (`id`) ON DELETE CASCADE
 );
