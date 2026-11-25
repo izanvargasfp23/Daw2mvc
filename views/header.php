@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['carrito'])) {
         
         <!-- Logo (Lleva a la Home) -->
         <a href="index.php?controller=Home&action=index" class="logo text-decoration-none">
-            <img src="img/Logo/Logo.webp" alt="Logo Valorant Eats">
+            <img src="img/Logo/LogoVE.svg" alt="Logo Valorant Eats">
         </a>
 
         <!-- Botón Hamburguesa (Solo se ve en móvil) -->
