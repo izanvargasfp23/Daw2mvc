@@ -47,6 +47,12 @@ class ProductoController
         $ingredientes = IngredienteDAO::getByProductoId($id);
         $alergenos = AlergenoDAO::getByProductoId($id);
 
+        // guardamos la cantidad base y el precio_extra de cada ingrediente
+        foreach ($ingredientes as $k => $ing) {
+            $ingredientes[$k]['cantidad_base'] = intval($ing['cantidad']);
+            $ingredientes[$k]['precio_extra'] = isset($ing['precio_extra']) ? floatval($ing['precio_extra']) : 0;
+        }
+
         // valores por defecto si vienes de la carta
         $cantidadActual = 1;
         $editIndex = null;
@@ -101,48 +107,75 @@ class ProductoController
                     $ingredientes[$pos]['cantidad'] = $ingredientes[$pos]['cantidad'] - 1;
                 }
             }
+        }
 
-            // si le dio al boton rojo de AÑADIR AL CARRITO
-            if (isset($_POST['anadir_carrito'])) {
-                
-                if (!isset($_SESSION['carrito'])) {
-                    $_SESSION['carrito'] = [];
+        // calculamos el suplemento por ingredientes extra (solo si supera la cantidad base)
+        $suplementoExtras = 0;
+        if (!empty($ingredientes)) {
+            foreach ($ingredientes as $ing) {
+                $cant = intval($ing['cantidad']);
+                $cantBase = isset($ing['cantidad_base']) ? intval($ing['cantidad_base']) : 1;
+                $precioExtra = isset($ing['precio_extra']) ? floatval($ing['precio_extra']) : 0;
+
+                if ($cant > $cantBase && $precioExtra > 0) {
+                    $unidadesExtra = $cant - $cantBase;
+                    $suplementoExtras = $suplementoExtras + ($unidadesExtra * $precioExtra);
                 }
-
-                // si estabamos editando uno que ya estaba en el carrito, lo cambiamos
-                if ($editIndex != "" && isset($_SESSION['carrito'][$editIndex])) {
-                    $_SESSION['carrito'][$editIndex]['cantidad'] = $cantidadActual;
-                    $_SESSION['carrito'][$editIndex]['ingredientes'] = $ingredientes;
-                } else {
-                    // si es nuevo, miramos si ya existe uno igual para sumar cantidad
-                    $yaEstaba = false;
-                    foreach ($_SESSION['carrito'] as $i => $item) {
-                        if ($item['tipo'] == 'producto' && $item['id'] == $id && $item['ingredientes'] == $ingredientes) {
-                            $_SESSION['carrito'][$i]['cantidad'] = $_SESSION['carrito'][$i]['cantidad'] + $cantidadActual;
-                            $yaEstaba = true;
-                        }
-                    }
-
-                    // si no estaba, lo metemos nuevo al final del carrito
-                    if ($yaEstaba == false) {
-                        $_SESSION['carrito'][] = [
-                            'tipo' => 'producto',
-                            'id' => $producto->getId(),
-                            'nombre' => $producto->getNombre(),
-                            'precio' => $producto->getPrecio(),
-                            'imagen' => $producto->getImagen(),
-                            'categoria_id' => $producto->getCategoriaId(),
-                            'cantidad' => $cantidadActual,
-                            'platos' => [],
-                            'ingredientes' => $ingredientes
-                        ];
-                    }
-                }
-
-                // nos vamos al carrito
-                header("Location: index.php?controller=Carrito&action=index");
-                exit();
             }
+        }
+
+        $precioBase = floatval($producto->getPrecio());
+        $precioUnitario = $precioBase + $suplementoExtras;
+        $precioTotal = $precioUnitario * intval($cantidadActual);
+
+        // si le dio al boton rojo de AÑADIR AL CARRITO
+        if ($_POST && isset($_POST['anadir_carrito'])) {
+            
+            if (!isset($_SESSION['carrito'])) {
+                $_SESSION['carrito'] = [];
+            }
+
+            // si estabamos editando uno que ya estaba en el carrito, lo cambiamos
+            if ($editIndex != "" && isset($_SESSION['carrito'][$editIndex])) {
+                $_SESSION['carrito'][$editIndex]['cantidad'] = $cantidadActual;
+                $_SESSION['carrito'][$editIndex]['ingredientes'] = $ingredientes;
+                $_SESSION['carrito'][$editIndex]['precio'] = $precioUnitario;
+                $_SESSION['carrito'][$editIndex]['precio_base'] = $precioBase;
+            } else {
+                // si es nuevo, miramos si ya existe uno igual para sumar cantidad
+                $yaEstaba = false;
+                foreach ($_SESSION['carrito'] as $i => $item) {
+                    if ($item['tipo'] == 'producto' && $item['id'] == $id && $item['ingredientes'] == $ingredientes) {
+                        $_SESSION['carrito'][$i]['cantidad'] = $_SESSION['carrito'][$i]['cantidad'] + $cantidadActual;
+                        $yaEstaba = true;
+                    }
+                }
+
+                // si no estaba, lo metemos nuevo al final del carrito
+                if ($yaEstaba == false) {
+                    $_SESSION['carrito'][] = [
+                        'tipo' => 'producto',
+                        'id' => $producto->getId(),
+                        'nombre' => $producto->getNombre(),
+                        'precio' => $precioUnitario,
+                        'precio_base' => $precioBase,
+                        'imagen' => $producto->getImagen(),
+                        'categoria_id' => $producto->getCategoriaId(),
+                        'cantidad' => $cantidadActual,
+                        'platos' => [],
+                        'ingredientes' => $ingredientes
+                    ];
+                }
+            }
+
+            // sincronizamos el carrito si el usuario esta logueado
+            if (isset($_SESSION['usuario_email'])) {
+                $_SESSION['carritos_usuarios'][$_SESSION['usuario_email']] = $_SESSION['carrito'];
+            }
+
+            // nos vamos al carrito
+            header("Location: index.php?controller=Carrito&action=index");
+            exit();
         }
 
         // enseñamos la vista de detalle
@@ -157,8 +190,11 @@ class ProductoController
     //         if($_GET['function'] == "todos"){
     //             $productos = ProductoDAO::getAll();
     //             json_encode($productos);
-    //         }else if($_GET['function'] == "ordenMayorMenor"){
-    //             //ORDENAR
+    //         }else if($metodo == "DELETE"){
+    //             $datos = json_decode(file_get_contents('php://input), true);
+    //             ProductoDAO::destroy($datos["id"]); 
+    //             http_response_code(200);
+    //             echo json_encode("Eliminado");
     //         }
 
     //     }else if($metodo == "POST"){

@@ -55,7 +55,7 @@
 
             </div>
 
-            <!-- columna derecha con el nombre, puntos, alergenos e ingredientes -->
+            <!-- columna derecha con el nombre, precio, puntos, alergenos e ingredientes -->
             <div class="col-12 col-lg-6">
                 
                 <span class="d-block mb-1 text-danger fw-bold" style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px;">
@@ -65,6 +65,18 @@
                 <h1 class="text-white mb-2" style="font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1;">
                     <?= $producto->getNombre() ?>
                 </h1>
+
+                <!-- precio unitario actualizado con extras -->
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+                    <span class="text-danger fw-bold" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; line-height: 1;">
+                        <?= number_format($precioUnitario, 2, ',', '.') ?>€
+                    </span>
+                    <?php if ($suplementoExtras > 0): ?>
+                        <span class="text-white-50 small">
+                            (Base: <?= number_format($precioBase, 2, ',', '.') ?>€ + Extras: <?= number_format($suplementoExtras, 2, ',', '.') ?>€)
+                        </span>
+                    <?php endif; ?>
+                </div>
 
                 <!-- calculo de puntos segun la categoria del plato -->
                 <?php 
@@ -112,13 +124,26 @@
                     <div class="d-flex flex-column">
                         <?php if (!empty($ingredientes)): ?>
                             <?php foreach ($ingredientes as $i => $ing): ?>
+                                <?php 
+                                    $precioExtra = isset($ing['precio_extra']) ? floatval($ing['precio_extra']) : 0;
+                                    $cantBase = isset($ing['cantidad_base']) ? intval($ing['cantidad_base']) : intval($ing['cantidad']);
+                                ?>
                                 <div class="d-flex align-items-center justify-content-between py-2 border-bottom border-secondary border-opacity-25">
-                                    <span class="text-white text-uppercase fw-semibold" style="font-size: 14px;">
-                                        <?= $ing['nombre'] ?>
-                                    </span>
+                                    <div>
+                                        <span class="text-white text-uppercase fw-semibold d-block" style="font-size: 14px;">
+                                            <?= $ing['nombre'] ?>
+                                        </span>
+                                        <?php if ($precioExtra > 0): ?>
+                                            <span class="text-white-50 small">
+                                                +<?= number_format($precioExtra, 2, ',', '.') ?>€ / extra
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
                                     
-                                    <!-- guardamos el nombre del ingrediente para no perderlo al recargar -->
+                                    <!-- guardamos los datos del ingrediente para no perderlos al recargar -->
                                     <input type="hidden" name="ingredientes[<?= $i ?>][nombre]" value="<?= $ing['nombre'] ?>">
+                                    <input type="hidden" name="ingredientes[<?= $i ?>][cantidad_base]" value="<?= $cantBase ?>">
+                                    <input type="hidden" name="ingredientes[<?= $i ?>][precio_extra]" value="<?= $precioExtra ?>">
                                     
                                     <!-- botones para subir o bajar la cantidad de este ingrediente -->
                                     <div class="d-inline-flex align-items-center bg-dark border border-secondary">

@@ -128,7 +128,7 @@ h1, h2, h3, h4, .titulo, .menu-navegacion a, .titulo-seccion, .display-4, .displ
 .banner-carta-img {
     width: 100%;
     height: auto;
-    max-height: 440px;
+    max-height: 390px;
     object-fit: cover;
     display: block;
 }

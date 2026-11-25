@@ -57,5 +57,41 @@ class Productos{
         this.precio = precio;
     }
 
+    eliminar(){
+        fetch("controller donde esta la funcion API"),{
+            method: "DELETE",
+            body: JSON.stringify(this.id)
+        }
+        .then(r => r.json())
+        .then(r => console.log(r))
+    }
+
+    crear(){
+        //Crear producto
+    }
+
+    cambiar(id){
+        //cambiar producto
+    }
+
 
 }
+
+const formularioEliminarProducto = document.querySelector("#eliminarProducto");
+
+formularioEliminarProducto.addEventListener("submit", (e) =>{
+    e.preventDefault();
+    const id = e.target[0].value;
+
+    const producto = {
+        id: id,
+        nombre: "test"
+    }
+
+    fetch("controller donde esta la funcion API"),{
+        method: "DELETE",
+        body: JSON.stringify(producto)
+    }
+    .then(r => r.json())
+    .then(r => console.log(r))
+})
