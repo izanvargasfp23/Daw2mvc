@@ -156,4 +156,16 @@ class UsuarioDAO
 
         return $ok;
     }
+
+    // suma los puntos VP ganados al usuario cuando hace un pedido
+    public static function sumarPuntos($usuarioId, $puntos)
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE usuarios SET puntos = puntos + ? WHERE id = ?");
+        $stmt->bind_param("ii", $puntos, $usuarioId);
+        $stmt->execute();
+
+        $stmt->close();
+        $con->close();
+    }
 }

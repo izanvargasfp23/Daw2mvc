@@ -2,34 +2,37 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
 
-            <!-- tarjeta oscura estilo valorant -->
+            <!-- caja oscura igual que la del perfil -->
             <div class="tarjeta-perfil p-4 p-md-5 text-center">
 
-                <!-- icono verde de confirmacion -->
-                <div class="mb-3">
-                    <span class="badge bg-success rounded-circle p-3 fs-3">✓</span>
-                </div>
-
-                <span class="d-block text-danger fw-bold titulo fs-5 mb-1">
-                    // OPERACIÓN COMPLETADA
-                </span>
-
-                <h1 class="text-white text-uppercase display-5 mb-3">
+                <!-- titulo principal -->
+                <h1 class="text-white text-uppercase display-5 mb-2">
                     ¡PEDIDO CONFIRMADO!
                 </h1>
 
-                <!-- numero de pedido guardado en la sesion -->
-                <?php if (isset($_SESSION['ultimo_pedido_id'])): ?>
-                    <p class="text-white-50 mb-3">
-                        Número de pedido: <strong class="text-white">#<?= $_SESSION['ultimo_pedido_id'] ?></strong>
-                    </p>
-                <?php endif; ?>
+                <!-- linea roja fina debajo del titulo -->
+                <hr class="border-danger opacity-75 mx-auto mb-4" style="width: 80px; border-width: 2px;">
 
+                <!-- numero de pedido si existe -->
+                <?php if (isset($_SESSION['ultimo_pedido_id'])) { ?>
+                    <p class="text-white mb-2 fs-5">
+                        Pedido <strong class="text-danger">#<?= $_SESSION['ultimo_pedido_id'] ?></strong>
+                    </p>
+                <?php } ?>
+
+                <!-- puntos vp ganados -->
+                <?php if (isset($_SESSION['ultimos_puntos_ganados']) && $_SESSION['ultimos_puntos_ganados'] > 0) { ?>
+                    <p class="text-white-50 mb-4">
+                        Has ganado <strong class="text-white">+<?= $_SESSION['ultimos_puntos_ganados'] ?> VP</strong> con esta compra.
+                    </p>
+                <?php } ?>
+
+                <!-- mensaje normal -->
                 <p class="text-white-50 mb-4">
-                    Tu comanda ya ha entrado en cocina. Puedes revisar el estado y todos tus pedidos desde tu perfil de agente.
+                    Ya hemos recibido tu pedido y lo estamos preparando. Puedes ver todos los detalles desde tu perfil.
                 </p>
 
-                <!-- botones para ir al perfil o volver a la carta -->
+                <!-- botones -->
                 <div class="d-flex flex-wrap justify-content-center gap-3">
                     <a href="index.php?controller=Usuario&action=perfil" class="boton-red m-0">
                         VER MIS PEDIDOS
