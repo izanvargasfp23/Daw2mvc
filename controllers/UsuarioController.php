@@ -227,14 +227,29 @@ class UsuarioController
             $nombre = trim($_POST['nombre']);
             $email = trim($_POST['email']);
             $telefono = trim($_POST['telefono']);
-            $direccion = trim($_POST['direccion']);
             $password = $_POST['password'];
 
-            UsuarioDAO::actualizarPerfil($idUser, $nombre, $email, $telefono, $direccion, $password);
+            // partimos la direccion por las comas: primero calle, luego cp, y por ultimo ciudad
+            $direccionCompleta = trim($_POST['direccion_completa']);
+            //(Ayuda de IA)
+            $partes = explode(",", $direccionCompleta);
+
+            $direccion = trim($partes[0]);
+            $cp = "";
+            $ciudad = "";
+
+            if (isset($partes[1])) {
+                $cp = trim($partes[1]);
+            }
+            if (isset($partes[2])) {
+                $ciudad = trim($partes[2]);
+            }
+
+            UsuarioDAO::actualizarPerfil($idUser, $nombre, $email, $telefono, $direccion, $cp, $ciudad, $password);
 
             $_SESSION['usuario_nombre'] = $nombre;
             $_SESSION['usuario_email'] = $email;
-            $_SESSION['mensaje_canje'] = "Datos del agente actualizados correctamente.";
+            $_SESSION['mensaje_canje'] = "Datos guardados correctamente.";
         }
 
         header("Location: index.php?controller=Usuario&action=perfil");

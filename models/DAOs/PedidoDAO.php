@@ -20,6 +20,35 @@ class PedidoDAO
         return $oferta;
     }
 
+    // comprueba si este usuario tiene el cupon canjeado y todavia sin gastar
+    public static function buscarCuponUsuario($usuarioId, $codigo)
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("SELECT uo.id AS canje_id, o.* FROM usuario_ofertas uo INNER JOIN ofertas o ON uo.oferta_id = o.id WHERE uo.usuario_id = ? AND o.codigo = ? AND o.activa = 1 AND uo.usada = 0 LIMIT 1");
+        $stmt->bind_param("is", $usuarioId, $codigo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $oferta = $result->fetch_assoc();
+
+        $stmt->close();
+        $con->close();
+
+        return $oferta;
+    }
+
+    // marca el cupon canjeado como gastado para que desaparezca del perfil
+    public static function marcarCuponUsado($canjeId)
+    {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE usuario_ofertas SET usada = 1 WHERE id = ?");
+        $stmt->bind_param("i", $canjeId);
+        $stmt->execute();
+
+        $stmt->close();
+        $con->close();
+    }
+
     // guarda el pedido completo en las 3 tablas
     public static function guardarPedido($usuarioId, $subtotal, $descuento, $total, $metodoPago, $carrito)
     {
@@ -64,14 +93,12 @@ class PedidoDAO
                 foreach ($item['ingredientes'] as $ing) {
                     $nombreIng = $ing['nombre'];
                     $cantIng = intval($ing['cantidad']);
-                    
-                    // miramos cuanto traia el plato normal (por defecto 1)
+
                     $cantBase = 1;
                     if (isset($ing['cantidad_base'])) {
                         $cantBase = intval($ing['cantidad_base']);
                     }
 
-                    // miramos cuanto cuesta cada extra de este ingrediente
                     $precioExtraUnit = 0.00;
                     if (isset($ing['precio_extra'])) {
                         $precioExtraUnit = floatval($ing['precio_extra']);

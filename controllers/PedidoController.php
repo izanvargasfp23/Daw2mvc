@@ -31,7 +31,9 @@ class PedidoController
         $mensajeCupon = "";
         $errorFormulario = "";
 
-        // sacamos los datos del usuario de la base de datos para rellenar el formulario
+        $idUser = $_SESSION['usuario_id'];
+
+        // sacamos los datos del usuario de la base de datos para rellenar el formulario por separado
         $usuario = UsuarioDAO::buscarPorEmail($_SESSION['usuario_email']);
 
         $email = "";
@@ -49,6 +51,16 @@ class PedidoController
             $direccion = $usuario['direccion'];
         }
 
+        $cp = "";
+        if (isset($usuario['cp'])) {
+            $cp = $usuario['cp'];
+        }
+
+        $ciudad = "";
+        if (isset($usuario['ciudad'])) {
+            $ciudad = $usuario['ciudad'];
+        }
+
         $telefono = "";
         if (isset($usuario['telefono'])) {
             $telefono = $usuario['telefono'];
@@ -56,8 +68,6 @@ class PedidoController
 
         $apellido = "";
         $edificio = "";
-        $cp = "";
-        $ciudad = "";
         $pais = "España";
         $metodoPago = "Tarjeta de crédito o débito";
         $numTarjeta = "";
@@ -80,14 +90,15 @@ class PedidoController
             if (isset($_POST['cvv'])) $cvv = trim($_POST['cvv']);
             if (isset($_POST['codigo_cupon'])) $codigoCupon = trim($_POST['codigo_cupon']);
 
-            // miramos si ha puesto un codigo de descuento
+            // miramos si ha puesto un codigo de descuento canjeado y sin usar
+            $ofertaAplicada = null;
             if ($codigoCupon != "") {
-                $oferta = PedidoDAO::buscarCupon($codigoCupon);
-                if ($oferta) {
-                    $descuento = ($subtotal * $oferta['valor']) / 100;
+                $ofertaAplicada = PedidoDAO::buscarCuponUsuario($idUser, $codigoCupon);
+                if ($ofertaAplicada) {
+                    $descuento = ($subtotal * $ofertaAplicada['valor']) / 100;
                     $mensajeCupon = "Cupón aplicado: -" . number_format($descuento, 2, ',', '.') . "€";
                 } else {
-                    $mensajeCupon = "El código no es válido o ha caducado.";
+                    $mensajeCupon = "No tienes ese cupón disponible o ya lo has gastado.";
                 }
             }
 
@@ -101,12 +112,15 @@ class PedidoController
                         $total = 0;
                     }
 
-                    $idUser = $_SESSION['usuario_id'];
                     $emailUser = $_SESSION['usuario_email'];
 
-                    // juntamos la direccion completa para guardarla en el perfil del usuario
-                    $direccionCompleta = $direccion . ", " . $cp . " " . $ciudad;
-                    UsuarioDAO::actualizarDatosEnvio($idUser, $telefono, $direccionCompleta);
+                    // guardamos calle, cp y ciudad por separado en la tabla usuarios
+                    UsuarioDAO::actualizarDatosEnvio($idUser, $telefono, $direccion, $cp, $ciudad);
+
+                    // si uso un cupon canjeado, lo marcamos como gastado para que desaparezca de su perfil
+                    if ($ofertaAplicada) {
+                        PedidoDAO::marcarCuponUsado($ofertaAplicada['canje_id']);
+                    }
 
                     // guardamos el pedido en la base de datos
                     $pedidoId = PedidoDAO::guardarPedido($idUser, $subtotal, $descuento, $total, $metodoPago, $_SESSION['carrito']);
